@@ -1,12 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Google Pay API -->
+    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 </head>
+
 <body>
+    <!-- Welcome Popup -->
+    <div id="welcomePopupOverlay" class="welcome-popup-overlay">
+        <div class="welcome-popup-modal">
+            <button class="popup-close-x" onclick="closeWelcomePopup()">×</button>
+            <div class="popup-icon">🎉</div>
+            <h2>Welcome Back, <span id="popupUserName"></span>!</h2>
+            <p>Explore our amazing furniture collection and find the perfect pieces for your home.</p>
+            <button class="popup-action-btn" onclick="closeWelcomePopup()">Let's Shop</button>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="payment-modal hidden-payment">
+        <div class="payment-container">
+            <button class="payment-close" onclick="closePaymentModal()">×</button>
+            <h2>🛒 Checkout</h2>
+            <div class="payment-content">
+                <div class="order-summary">
+                    <h3>Order Summary</h3>
+                    <p id="itemName">Item: Premium Furniture Set</p>
+                    <p class="total-amount">Total: <span id="totalAmount">₹500</span></p>
+                </div>
+                <div class="payment-methods">
+                    <h3>Payment Method</h3>
+                    <div id="google-pay-button"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="left">
             GN Furniture
@@ -20,76 +54,87 @@
             </ul>
         </div>
         <div class="right">
+            <button class="shop-btn" onclick="openPaymentModal()">🛒 Shop Now</button>
             <button class="logout-btn" onclick="logout()" id="logoutBtn">Sign Out</button>
         </div>
     </header>
     <div class="slider">
-  <div class="slides">
-    <img src="f1.jpg">
-    <img src="f2.jpg">
-    <img src="f3.jpg">
-  </div>
-</div>
+        <div class="slides">
+            <img src="f1.jpg">
+            <img src="f2.jpg">
+            <img src="f3.jpg">
+        </div>
+    </div>
     <div class="heading">
         <h1>Welcome to GN Furniture</h1>
         <p id="p1">Your one-stop shop for quality furniture</p>
         <p id="p2">We provide stylish, durable, and affordable furniture you can trust.
-        Designed with care to bring comfort and beauty to your home.
-        Quality furniture that makes your home feel warm and welcoming.
-        Modern furniture crafted for comfort, style, and everyday living.</p>
+            Designed with care to bring comfort and beauty to your home.
+            Quality furniture that makes your home feel warm and welcoming.
+            Modern furniture crafted for comfort, style, and everyday living.</p>
     </div>
     <div class="container">
         <h3>Explore Our Collections</h3>
         <div class="cards">
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1309042110/photo/interior-design-of-stylish-dining-room-interior-with-family-wooden-table-modern-chairs-plate.jpg?s=1024x1024&w=is&k=20&c=a1SzMh8OFKOsl33rxcvFhekrn49PKiD0d8VZA2n-6Yg=" alt="Card 1">
+                <img src="https://media.istockphoto.com/id/1309042110/photo/interior-design-of-stylish-dining-room-interior-with-family-wooden-table-modern-chairs-plate.jpg?s=1024x1024&w=is&k=20&c=a1SzMh8OFKOsl33rxcvFhekrn49PKiD0d8VZA2n-6Yg="
+                    alt="Card 1">
                 <h3>Dining Room</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1459550764/photo/interior-of-modern-house-dining-room-with-wooden-table.jpg?s=1024x1024&w=is&k=20&c=dmZcW1PThMtp8jGLha-kFERFdePwzzrJ2Utw4qeVhC0=" alt="Card 2">
+                <img src="https://media.istockphoto.com/id/1459550764/photo/interior-of-modern-house-dining-room-with-wooden-table.jpg?s=1024x1024&w=is&k=20&c=dmZcW1PThMtp8jGLha-kFERFdePwzzrJ2Utw4qeVhC0="
+                    alt="Card 2">
                 <h3>Living Room</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY=" alt="Card 3">
+                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
+                    alt="Card 3">
                 <h3>Office Furniture</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY=" alt="Card 3">
+                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
+                    alt="Card 3">
                 <h3>Office Furniture</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY=" alt="Card 3">
+                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
+                    alt="Card 3">
                 <h3>Office Furniture</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY=" alt="Card 3">
+                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
+                    alt="Card 3">
                 <h3>Office Furniture</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1309042110/photo/interior-design-of-stylish-dining-room-interior-with-family-wooden-table-modern-chairs-plate.jpg?s=1024x1024&w=is&k=20&c=a1SzMh8OFKOsl33rxcvFhekrn49PKiD0d8VZA2n-6Yg=" alt="Card 1">
+                <img src="https://media.istockphoto.com/id/1309042110/photo/interior-design-of-stylish-dining-room-interior-with-family-wooden-table-modern-chairs-plate.jpg?s=1024x1024&w=is&k=20&c=a1SzMh8OFKOsl33rxcvFhekrn49PKiD0d8VZA2n-6Yg="
+                    alt="Card 1">
                 <h3>Dining Room</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1459550764/photo/interior-of-modern-house-dining-room-with-wooden-table.jpg?s=1024x1024&w=is&k=20&c=dmZcW1PThMtp8jGLha-kFERFdePwzzrJ2Utw4qeVhC0=" alt="Card 2">
+                <img src="https://media.istockphoto.com/id/1459550764/photo/interior-of-modern-house-dining-room-with-wooden-table.jpg?s=1024x1024&w=is&k=20&c=dmZcW1PThMtp8jGLha-kFERFdePwzzrJ2Utw4qeVhC0="
+                    alt="Card 2">
                 <h3>Living Room</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY=" alt="Card 3">
+                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
+                    alt="Card 3">
                 <h3>Office Furniture</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
             <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY=" alt="Card 3">
+                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
+                    alt="Card 3">
                 <h3>Office Furniture</h3>
-                <p></p>
+                <p class="price">₹10 - ₹20</p>
             </div>
 
         </div>
@@ -99,26 +144,32 @@
         <div class="b1">
             <img src="bedroom.jpg" alt="Bedroom Furniture">
             <p>Bedroom Furniture</p>
+            <p class="price">₹10 - ₹20</p>
         </div>
         <div class="b1">
             <img src="living.jpg" alt="Living Room Furniture">
             <p>Living Room Furniture</p>
+            <p class="price">₹10 - ₹20</p>
         </div>
         <div class="b1">
             <img src="dining.jpg" alt="Dining Room Furniture">
             <p>Dining Room Furniture</p>
+            <p class="price">₹10 - ₹20</p>
         </div>
         <div class="b1">
             <img src="office.jpg" alt="Office Furniture">
             <p>Office Furniture</p>
+            <p class="price">₹10 - ₹20</p>
         </div>
         <div class="b1">
             <img src="kitchen.jpg" alt="Kitchen Furniture">
             <p>Kitchen Furniture</p>
+            <p class="price">₹10 - ₹20</p>
         </div>
         <div class="b1">
             <img src="outdoor.jpg" alt="Outdoor Furniture">
             <p>Outdoor Furniture</p>
+            <p class="price">₹10 - ₹20</p>
         </div>
     </div>
 
@@ -143,6 +194,13 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const logoutBtn = document.getElementById("logoutBtn");
+        const welcomePopupOverlay = document.getElementById("welcomePopupOverlay");
+        const popupUserName = document.getElementById("popupUserName");
+
+        // Close Welcome Popup Function
+        window.closeWelcomePopup = function () {
+            welcomePopupOverlay.classList.add("hidden-popup");
+        };
 
         // Logout Function
         window.logout = async function () {
@@ -159,8 +217,132 @@
         onAuthStateChanged(auth, (user) => {
             if (!user) {
                 window.location.href = "index.html";
+            } else {
+                // Show welcome popup with user's name (only on first visit after login)
+                if (!sessionStorage.getItem("popupShown")) {
+                    const firstName = user.displayName ? user.displayName.split(' ')[0] : "Guest";
+                    popupUserName.textContent = firstName;
+                    welcomePopupOverlay.classList.remove("hidden-popup");
+                    sessionStorage.setItem("popupShown", "true");
+                } else {
+                    welcomePopupOverlay.classList.add("hidden-popup");
+                }
+            }
+        });
+
+        // Payment Modal Functions
+        const paymentModal = document.getElementById("paymentModal");
+
+        window.openPaymentModal = function () {
+            paymentModal.classList.remove("hidden-payment");
+            initGooglePay();
+        };
+
+        window.closePaymentModal = function () {
+            paymentModal.classList.add("hidden-payment");
+        };
+
+        // Google Pay Integration
+        async function initGooglePay() {
+            const paymentsClient = new google.payments.api.PaymentsClient({environment: 'TEST'});
+            
+            const isReadyToPayRequest = {
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                allowedPaymentMethods: [{
+                    type: 'CARD',
+                    parameters: {
+                        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                        allowedCardNetworks: ['MASTERCARD', 'VISA']
+                    }
+                }]
+            };
+
+            try {
+                const isReadyToPay = await paymentsClient.isReadyToPay(isReadyToPayRequest);
+                if (isReadyToPay.result) {
+                    addGooglePayButton(paymentsClient);
+                }
+            } catch (err) {
+                console.log('Error checking Google Pay availability:', err);
+            }
+        }
+
+        function addGooglePayButton(paymentsClient) {
+            const totalAmountSpan = document.getElementById("totalAmount");
+            const amount = totalAmountSpan.textContent.replace('₹', '').trim();
+            
+            const paymentDataRequest = {
+                apiVersion: 2,
+                apiVersionMinor: 0,
+                allowedPaymentMethods: [{
+                    type: 'CARD',
+                    parameters: {
+                        allowedAuthMethods: ['PAN_ONLY', 'CRYPTOGRAM_3DS'],
+                        allowedCardNetworks: ['MASTERCARD', 'VISA']
+                    },
+                    tokenizationSpecification: {
+                        type: 'PAYMENT_GATEWAY',
+                        parameters: {
+                            gateway: 'stripe',
+                            stripVersion: '2021-06-04'
+                        }
+                    }
+                }],
+                merchantInfo: {
+                    merchantId: 'GN_FURNITURE_ID',
+                    merchantName: 'GN Furniture'
+                },
+                transactionInfo: {
+                    totalPriceStatus: 'FINAL',
+                    totalPrice: amount,
+                    currencyCode: 'INR'
+                },
+                callbackIntents: ['PAYMENT_AUTHORIZATION']
+            };
+
+            const button = paymentsClient.createButton({
+                onClick: () => {
+                    paymentsClient.loadPaymentData(paymentDataRequest)
+                        .then(function(paymentData) {
+                            handlePaymentSuccess(paymentData);
+                        })
+                        .catch(function(err) {
+                            console.error('Payment error:', err);
+                            alert('Payment cancelled or failed');
+                        });
+                },
+                allowedPaymentMethods: paymentDataRequest.allowedPaymentMethods
+            });
+
+            const googlePayButton = document.getElementById('google-pay-button');
+            googlePayButton.innerHTML = '';
+            googlePayButton.appendChild(button);
+        }
+
+        function handlePaymentSuccess(paymentData) {
+            const user = auth.currentUser;
+            
+            closePaymentModal();
+            
+            const message = `✅ Payment Successful!\n\nAmount: ₹${document.getElementById("totalAmount").textContent.replace('₹', '')}\nPayment Method: Google Pay\n\nThank you for shopping at GN Furniture!\n\nOrder confirmation sent to ${user.email}`;
+            
+            alert(message);
+            
+            console.log('Payment completed:', {
+                user: user.email,
+                timestamp: new Date().toISOString(),
+                paymentData: paymentData
+            });
+        }
+
+        // Close payment modal when clicking outside
+        window.addEventListener('click', function (event) {
+            if (event.target === paymentModal) {
+                closePaymentModal();
             }
         });
     </script>
 </body>
+
 </html>
