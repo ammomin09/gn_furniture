@@ -1266,4 +1266,101 @@ ul li a{
     padding-right:50px;
     margin-bottom:20px;
 }
+@media (max-width: 600px) {
+    .about {
+        gap: 15px;
+        padding: 0 10px;
+    }
+    
+    .about h1 {
+        font-size: 22px;
+    }
+    
+    .about p {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+    
+    .intro h1 {
+        font-size: 22px;
+    }
+    
+    .intro p {
+        font-size: 14px;
+        padding: 0 10px;
+    }
+}
+@media (min-width: 601px) and (max-width: 768px) {
+    .about {
+        gap: 20px;
+        padding: 0 15px;
+    }
+    
+    .about h1 {
+        font-size: 24px;
+    }
+    
+    .about p {
+        font-size: 15px;
+        padding: 0 15px;
+    }
+    
+    .intro h1 {
+        font-size: 24px;
+    }
+    
+    .intro p {
+        font-size: 15px;
+        padding: 0 15px;
+    }
+}
+@media (min-width: 769px) and (max-width: 1024px) {
+    .about {
+        gap: 25px;
+        padding: 0 20px;
+    }
+    
+    .about h1 {
+        font-size: 26px;
+    }
+    
+    .about p {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+    
+    .intro h1 {
+        font-size: 26px;
+    }
+    
+    .intro p {
+        font-size: 16px;
+        padding: 0 20px;
+    }
+}
+@media (min-width: 1025px) {
+    .about {
+        gap: 30px;
+        padding: 0 40px;
+    }
+    
+    .about h1 {
+        font-size: 28px;
+    }
+    
+    .about p {
+        font-size: 16px;
+        padding: 0 40px;
+    }
+    
+    .intro h1 {
+        font-size: 28px;
+    }
+    
+    .intro p {
+        font-size: 16px;
+        padding: 0 40px;
+    }
+}
+
 
