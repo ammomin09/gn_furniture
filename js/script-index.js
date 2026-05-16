@@ -32,7 +32,7 @@ const popupOverlay = document.getElementById("popupOverlay");
 
 // Close Popup Function
 window.closePopup = function() {
-  popupOverlay.classList.add("hidden-popup");
+  document.getElementById("popupOverlay").style.display = "none";
 };
 
 // Show Error Message
