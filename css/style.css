@@ -1214,3 +1214,56 @@ ul li a{
     color:silver;
     font-style:italic;
 }
+
+/* About.html */
+.introduction img{
+    width:100%;
+    height: 600px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.about{
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.about h1{
+    color:rgb(12, 12, 12);
+    opacity: 100%;
+    font-size: 28px;   
+    text-align: center;
+    margin-top:20px;
+}
+.about p{
+    color:#565454;
+    font-size: 16px;
+    line-height: 1.6em;
+    text-align: center;
+    font-weight: bold;
+    padding-left:50px;
+    padding-right:50px;
+}
+.intro{
+    display:flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 300px;
+}
+.intro h1{
+    font-size: 28px;
+    color:#353535;
+    text-align:center;
+    margin-top:20px;
+}
+.intro p{
+    font-size: 16px;
+    color:#353535;
+    line-height: 2.0em;
+    text-align: center;
+    font-weight: bold;
+    padding-left:50px;
+    padding-right:50px;
+    margin-bottom:20px;
+}
+
