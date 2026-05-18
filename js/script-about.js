@@ -28,3 +28,27 @@ onAuthStateChanged(auth, (user) => {
     window.location.href = "../index.html";
   }
 });
+const profile = document.querySelector(".profile");
+
+const observer = new IntersectionObserver((entries) => {
+
+    entries.forEach((entry) => {
+
+        if(entry.isIntersecting){
+
+            // ADD ANIMATION
+            entry.target.classList.add("show");
+
+        } else {
+
+            // REMOVE ANIMATION WHEN OUTSIDE VIEW
+            entry.target.classList.remove("show");
+        }
+
+    });
+
+},{
+    threshold:0.3
+});
+
+observer.observe(profile);

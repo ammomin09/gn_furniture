@@ -162,3 +162,50 @@ window.addEventListener('click', function (event) {
     window.closePaymentModal();
   }
 });
+
+const cards = document.querySelectorAll(".card");
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        } else {
+            // Remove class when card leaves viewport
+            // so animation repeats infinitely
+            entry.target.classList.remove("show");
+        }
+
+    });
+}, {
+    threshold: 0.2
+});
+
+cards.forEach((card) => {
+    observer.observe(card);
+});
+
+const boxes = document.querySelectorAll(".b1");
+
+const observer2 = new IntersectionObserver((entries) => {
+
+    entries.forEach((entry) => {
+
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        } else {
+            // Remove when leaving viewport
+            // so animation repeats infinitely
+            entry.target.classList.remove("show");
+        }
+
+    });
+
+}, {
+    threshold: 0.2
+});
+
+boxes.forEach((box) => {
+    observer2.observe(box);
+});
+
