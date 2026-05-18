@@ -64,6 +64,13 @@
             <img src="../assets/f2.jpg" alt="Furniture 2">
             <img src="../assets/f3.jpg" alt="Furniture 3">
         </div>
+        <button class="slider-arrow prev" onclick="prevSlide()">❮</button>
+        <button class="slider-arrow next" onclick="nextSlide()">❯</button>
+        <div class="slider-controls">
+            <div class="slider-dot active" onclick="goToSlide(0)"></div>
+            <div class="slider-dot" onclick="goToSlide(1)"></div>
+            <div class="slider-dot" onclick="goToSlide(2)"></div>
+        </div>
     </div>
     <div class="heading">
         <h1>Welcome to GN Furniture</h1>
@@ -184,6 +191,7 @@
         <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
     </div>
 
+    <script src="../js/slider.js"></script>
     <script type="module" src="../js/script-home.js"></script>
 </body>
 
