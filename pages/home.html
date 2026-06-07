@@ -6,37 +6,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - GN Furniture</title>
     <link rel="stylesheet" href="../css/style.css">
-    <!-- Google Pay API -->
-    <script async src="https://pay.google.com/gp/p/js/pay.js"></script>
 </head>
 
-<body>
+<body id="hbody">
+    <!-- Full Page Background -->
+    <div class="page-bg"></div>
+    
     <!-- Welcome Popup -->
     <div id="welcomePopupOverlay" class="welcome-popup-overlay">
         <div class="welcome-popup-modal">
-            <button class="popup-close-x" onclick="closeWelcomePopup()">×</button>
+            <button class="popup-close-x" onclick="closeWelcomePopup()" title="Close">×</button>
             <div class="popup-icon">🎉</div>
-            <h2>Welcome Back, <span id="popupUserName"></span>!</h2>
-            <p>Explore our amazing furniture collection and find the perfect pieces for your home.</p>
-            <button class="popup-action-btn" onclick="closeWelcomePopup()">Let's Shop</button>
+            <h2>Welcome Back, <span id="popupUserName">Guest</span>!</h2>
+            <p>Explore our amazing furniture collection and find the perfect pieces for your home. Enjoy exclusive discounts and premium quality!</p>
+            <button class="popup-action-btn" onclick="closeWelcomePopup()">Let's Shop Now</button>
         </div>
     </div>
 
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="payment-modal hidden-payment">
-        <div class="payment-container">
-            <button class="payment-close" onclick="closePaymentModal()">×</button>
-            <h2>🛒 Checkout</h2>
-            <div class="payment-content">
-                <div class="order-summary">
-                    <h3>Order Summary</h3>
-                    <p id="itemName">Item: Premium Furniture Set</p>
-                    <p class="total-amount">Total: <span id="totalAmount">₹500</span></p>
-                </div>
-                <div class="payment-methods">
-                    <h3>Payment Method</h3>
-                    <div id="google-pay-button"></div>
-                </div>
+    <!-- Order Modal -->
+    <div id="orderModal" class="order-modal hidden-order">
+        <div class="order-container">
+            <button class="order-close" onclick="closeOrderModal()">×</button>
+            <h2>📦 Place Your Order</h2>
+            <div class="order-content">
+                <form onsubmit="handleOrderSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="productName">Product Name</label>
+                            <input type="text" id="productName" placeholder="Enter product name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" placeholder="Enter quantity" min="1" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" placeholder="Enter your full name" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="Enter your email" required />
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" placeholder="Enter your phone number" pattern="[0-9]{10}" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="Enter your city" required />
+                        </div>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="address">Address</label>
+                        <textarea id="address" placeholder="Enter your complete address" rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="price">Price (₹)</label>
+                            <input type="number" id="price" placeholder="Enter price" min="0" step="0.01" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="deliveryDate">Delivery Date</label>
+                            <input type="date" id="deliveryDate" required />
+                        </div>
+                    </div>
+
+                    <div id="orderError" class="error-message hidden"></div>
+
+                    <button type="submit" class="order-btn">Confirm Order</button>
+                </form>
             </div>
         </div>
     </div>
@@ -54,7 +100,7 @@
             </ul>
         </nav>
         <div class="right">
-            <button class="shop-btn" onclick="openPaymentModal()">🛒 Shop</button>
+            <button class="shop-btn" onclick="openOrderModal()">📦 Order</button>
             <button class="logout-btn" onclick="logout()" id="logoutBtn">Sign Out</button>
         </div>
     </header>
@@ -72,13 +118,17 @@
             <div class="slider-dot" onclick="goToSlide(2)"></div>
         </div>
     </div>
-    <div class="heading">
-        <h1>Welcome to GN Furniture</h1>
-        <p id="p1">Your one-stop shop for quality furniture</p>
-        <p id="p2">We provide stylish, durable, and affordable furniture you can trust.
-            Designed with care to bring comfort and beauty to your home.
-            Quality furniture that makes your home feel warm and welcoming.
-            Modern furniture crafted for comfort, style, and everyday living.</p>
+    <!-- Wooden Furniture Background -->
+    <div class="heading-wrapper">
+        <div class="furniture-bg"></div>
+        <div class="heading">
+            <h1>Welcome to GN Furniture</h1>
+            <p id="p1">Your one-stop shop for quality furniture</p>
+            <p id="p2">We provide stylish, durable, and affordable furniture you can trust.
+                Designed with care to bring comfort and beauty to your home.
+                Quality furniture that makes your home feel warm and welcoming.
+                Modern furniture crafted for comfort, style, and everyday living.</p>
+        </div>
     </div>
     <div class="container">
         <h3>Explore Our Collections</h3>
@@ -174,6 +224,7 @@
             <p class="price">₹10 - ₹20</p>
         </div>
     </div>
+    
     <div class="footer">
         <h1>GN Furniture</h1>
         <p>Quick Links</p>
