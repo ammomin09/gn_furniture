@@ -749,8 +749,6 @@ body > *:not(.page-bg):not(.footer) {
         font-size: 13px;
     }
 }
-    }
-}
 
 .payment-close {
     position: absolute;
