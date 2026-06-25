@@ -35,8 +35,8 @@ body {
     left: 0;
     width: 100%;
     height: 100vh;
-    background: url('https://images.pexels.com/photos/7109998/pexels-photo-7109998.jpeg') center/cover;
-    opacity: 0.20;
+    background: url('../assets/bg.png') center/cover;
+    opacity: 0.9;
     z-index: -1;
     pointer-events: none;
 }
@@ -1443,7 +1443,7 @@ ul li a{
     font-size: 30px;
     font-weight: normal;
     line-height: 2.5em;
-    color:#050505;
+    color:#ffffff;
 }
 
 #p2{
@@ -1453,27 +1453,27 @@ ul li a{
     text-align:center;
     max-width: 1150px;
     margin: 0 auto;
-    color:#000000;
+    color:#fefefe;
     padding: 0 15px;
 }
 
 .heading #p1:hover{
-    color: #000000;
+    color: #dbd8d8;
     transition: ease-in-out 0.3s;
 }
 
 .heading #p2:hover{
-    color: #3c3c3c;
+    color: #e9e6e6;
     transition: ease-in-out 0.3s;
 }
 
 .heading h1{
-    color:#010101;
+    color:#f6f4f4;
     transition: ease-in-out 0.3s;
 }
 
 .heading h1:hover{
-    color: #1b1a1a;
+    color: #d2d0d0;
     transition: ease-in-out 0.3s;
 }
 
@@ -1639,7 +1639,7 @@ ul li a{
 }
 
 .container h3{
-    color: #080808;
+    color: #fcf8f8;
     font-size:23px;
     text-align:center;
     margin-bottom:30px;
@@ -1816,7 +1816,7 @@ ul li a{
 }
 
 .type .f_para{
-    color: #151414;
+    color: #fdfcfc;
     font-size: 30px;
     font-weight: bold;
     text-align: center;
@@ -2221,7 +2221,7 @@ ul li a{
     height:800px;
 }
 h1{
-    color:rgb(12, 12, 12);
+    color:rgb(255, 255, 255);
     padding:20px;
     text-align: center;
 }
