@@ -9,7 +9,7 @@ import {
   signOut,
   onAuthStateChanged,
   setPersistence,
-  browserSessionPersistence
+  browserLocalPersistence
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import {
   getFirestore,
@@ -307,8 +307,8 @@ window.handleEmailLogin = async function(event) {
       email = userData.email;
     }
 
-    // Set session persistence
-    await setPersistence(auth, browserSessionPersistence);
+    // Set session persistence - Users stay logged in
+    await setPersistence(auth, browserLocalPersistence);
 
     // Sign in with email and password
     await signInWithEmailAndPassword(auth, email, password);
@@ -352,8 +352,8 @@ window.googleLogin = async function () {
       prompt: "select_account"
     });
 
-    // Session only until browser closes
-    await setPersistence(auth, browserSessionPersistence);
+    // Users stay logged in across browser sessions
+    await setPersistence(auth, browserLocalPersistence);
 
     // Google Login
     const result = await signInWithPopup(auth, provider);

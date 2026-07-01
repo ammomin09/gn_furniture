@@ -24,8 +24,25 @@ html, body {
     overflow-x: hidden;
 }
 
+:root {
+    --color-bg: #f6f2ef;
+    --color-surface: #ffffff;
+    --color-text: #2b2a27;
+    --color-muted: #6d655d;
+    --color-accent: #d97706;
+    --color-accent-soft: #ffb84e;
+    --color-footer: #f8f4f0;
+    --color-heading-light: #f9f7f2;
+}
+
 body {
     position: relative;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+body:not(.auth-body) {
+    padding-top: px;
 }
 
 /* Full Page Background */
@@ -1422,16 +1439,18 @@ ul li a{
 .heading-wrapper {
     position: relative;
     z-index: 2;
-    padding: 40px 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
 }
 
 .heading{
     line-height: 1.5em;
     font-size: 25px;
     font-weight: bold;
-    margin-top: 30px;   
+    margin-top: 30px;
     text-align:center;
-    color:#292828;
+    color: var(--color-heading-light);
     padding: 0 10px;
     position: relative;
     z-index: 2;
@@ -1441,7 +1460,7 @@ ul li a{
     font-size: 30px;
     font-weight: normal;
     line-height: 2.5em;
-    color:#ffffff;
+    color: var(--color-heading-light);
 }
 
 #p2{
@@ -1451,7 +1470,7 @@ ul li a{
     text-align:center;
     max-width: 1150px;
     margin: 0 auto;
-    color:#fefefe;
+    color: var(--color-heading-light);
     padding: 0 15px;
 }
 
@@ -1566,31 +1585,36 @@ ul li a{
 }
 .container{
     width:100%;
+    max-width:1200px;
+    margin:0 auto;
     padding:70px 20px;
-} 
+}
 
 .cards{
     display: flex;
-    gap: 30px;
+    gap: 18px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: stretch;
 }
 
 /* INITIAL HIDDEN STATE */
 .card{
-    width: 200px;
-    height: 250px;
+    flex: 1 1 220px;
+    max-width: 220px;
+    min-width: 180px;
     background: white;
     overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgb(56, 47, 47);
+    border-radius: 14px;
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.12);
     cursor: pointer;
     backdrop-filter: blur(10px);
-
-    /* Animation setup */
+    display: flex;
+    flex-direction: column;
     opacity: 0;
-    transform: translateY(80px) scale(0.9);
-    transition: all 0.8s ease;
+    transform: translateY(40px) scale(0.96);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.4s ease;
+    animation: cardFadeUp 0.6s ease both;
 }
 
 /* ACTIVE LANDING EFFECT */
@@ -1601,46 +1625,87 @@ ul li a{
 
 /* Hover Effects */
 .card:hover{
-    transform: translateY(-10px) scale(1.03);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.18);
 }
 
 .card:active {
-    transform: translateY(-5px);
+    transform: translateY(-4px) scale(1.01);
 }
 
 .card img{
     width:100%;
-    height:200px;
+    aspect-ratio: 4/3;
     object-fit: cover;
     display: block;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform 0.35s ease, filter 0.35s ease;
+    animation: imageFadeIn 0.8s ease both, imageFloat 8s ease-in-out infinite alternate;
+}
+
+.card:hover img {
+    transform: scale(1.08) translateY(-2px);
+    filter: brightness(1.08);
 }
 
 .card h3{
-    padding:10px;
+    padding: 14px 14px 6px;
     font-size: 14px;
-    color:#333232;
+    color: var(--color-text);
 }
 
 .card p{
-    padding:0 10px;
+    padding: 0 14px 10px;
     font-size: 14px;
-    color:#333232;
+    color: var(--color-muted);
+    line-height: 1.4;
 }
 
 .card p.price{
     font-weight: bold;
-    color: #ff6b35;
+    color: var(--color-accent);
     font-size: 16px;
-    margin-top: 8px;
-    padding-bottom: 10px;
+    margin-top: 4px;
+    padding-bottom: 14px;
 }
 
 .container h3{
-    color: #fcf8f8;
-    font-size:23px;
+    color: var(--color-heading-light);
+    font-size: 28px;
     text-align:center;
     margin-bottom:30px;
+}
+
+@keyframes cardFadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes imageFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.98);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes imageFloat {
+    from {
+        transform: translateY(0) scale(1);
+    }
+    to {
+        transform: translateY(-6px) scale(1.01);
+    }
 }
 
 /* Large Desktop: 1025px and above */
@@ -1648,13 +1713,12 @@ ul li a{
     .container {
         padding: 70px 40px;
     }
-    
     .card {
-        width: 200px;
+        flex: 1 1 220px;
+        max-width: 220px;
     }
-    
     .cards {
-        gap: 30px;
+        gap: 22px;
     }
 }
 
@@ -1663,19 +1727,21 @@ ul li a{
     .container {
         padding: 50px 20px;
     }
-    
     .container h3 {
-        font-size: 20px;
+        font-size: 22px;
     }
-    
     .card {
-        width: 170px;
+        flex: 1 1 200px;
+        max-width: 200px;
+        min-width: 180px;
     }
-    
-    .card img {
-        height: 170px;
+    .card h3 {
+        font-size: 13px;
     }
-    
+    .card p,
+    .card p.price {
+        font-size: 13px;
+    }
     .cards {
         gap: 20px;
     }
@@ -1686,29 +1752,23 @@ ul li a{
     .container {
         padding: 40px 15px;
     }
-    
     .container h3 {
         font-size: 20px;
     }
-    
     .card {
-        width: 150px;
+        flex: 1 1 200px;
+        max-width: 200px;
+        min-width: 180px;
     }
-    
-    .card img {
-        height: 150px;
-    }
-    
     .card h3 {
         font-size: 12px;
     }
-    
-    .card p {
-        font-size: 11px;
+    .card p,
+    .card p.price {
+        font-size: 12px;
     }
-    
     .cards {
-        gap: 15px;
+        gap: 18px;
     }
 }
 
@@ -1717,39 +1777,28 @@ ul li a{
     .container {
         padding: 30px 10px;
     }
-    
     .container h3 {
         font-size: 18px;
         margin-bottom: 20px;
     }
-    
     .card {
-        width: 130px;
-        min-height: 200px;
+        flex: 1 1 calc(100% - 20px);
+        max-width: 100%;
+        min-width: auto;
     }
-    
     .card img {
-        height: 130px;
+        aspect-ratio: 16 / 10;
     }
-    
     .card h3 {
-        font-size: 11px;
-        padding: 6px;
+        font-size: 13px;
+        padding: 12px 12px 6px;
     }
-    
-    .card p {
-        font-size: 10px;
-        padding: 0 6px;
-    }
-    
+    .card p,
     .card p.price {
         font-size: 12px;
-        margin-top: 4px;
-        padding-bottom: 6px;
     }
-    
     .cards {
-        gap: 12px;
+        gap: 14px;
     }
 }
 
@@ -1765,7 +1814,9 @@ ul li a{
 .b1 {
     text-align: center;
     padding: 10px;
-    flex: 0 0 auto;
+    flex: 1 1 220px;
+    max-width: 240px;
+    min-width: 160px;
 
     /* Animation Initial State */
     opacity: 0;
@@ -1780,7 +1831,8 @@ ul li a{
 }
 
 .type img{
-    width:195px;
+    width:100%;
+    max-width:195px;
     height:230px;
     border-radius: 10%;
     overflow: hidden;
@@ -1800,7 +1852,7 @@ ul li a{
 }
 
 .type p{
-    color: #3d3c3c;
+    color: var(--color-text);
     font-size: 16px;
     font-weight: bold;
     text-align: center;
@@ -1808,7 +1860,7 @@ ul li a{
 }
 
 .type p.price{
-    color: #ff6b35;
+    color: var(--color-accent);
     font-size: 14px;
     margin-top: 8px;
 }
@@ -1937,9 +1989,10 @@ ul li a{
     background-color:rgb(7, 8, 8);
     color:white;
     text-align: center;
-    opacity: 0.7;
+    opacity: 0.9;
     position: relative;
     z-index: 100;
+    padding: 40px 20px 30px;
 }
 .footer ul{
     list-style: none;
@@ -1948,8 +2001,12 @@ ul li a{
     margin:auto;
     gap: 20px;
     justify-content: center;
-    flex-wrap: wrap;            
+    flex-wrap: wrap;
     line-height: 1.5em;
+}
+.footer p{
+    max-width: 1100px;
+    margin: 0 auto;
 }
 .footer a{
     font-size:14px;
@@ -2247,7 +2304,9 @@ h1{
     transform:scale(1.1);
     box-shadow: 1px 1px 10px 1px rgb(128, 118, 118);
 }
+
 img{
-    height:220px;
-    width:250px;
+    max-width: 100%;
+    height: auto;
 }
+
