@@ -4,15 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GN Furniture creates elegant, durable furniture for homes and workspaces with custom craftsmanship." />
     <title>Home - GN Furniture</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body id="hbody">
-    <!-- Full Page Background -->
+    <a class="skip-link" href="#main-content">Skip to content</a>
     <div class="page-bg"></div>
-    
-    <!-- Welcome Popup -->
+
     <div id="welcomePopupOverlay" class="welcome-popup-overlay">
         <div class="welcome-popup-modal">
             <button class="popup-close-x" onclick="closeWelcomePopup()" title="Close">×</button>
@@ -23,7 +23,6 @@
         </div>
     </div>
 
-    <!-- Order Modal -->
     <div id="orderModal" class="order-modal hidden-order">
         <div class="order-container">
             <button class="order-close" onclick="closeOrderModal()">×</button>
@@ -87,11 +86,9 @@
         </div>
     </div>
 
-    <header>
-        <div class="left">
-            GN Furniture
-        </div>
-        <nav class="mid">
+    <header class="site-header">
+        <div class="left">GN Furniture</div>
+        <nav class="mid" aria-label="Primary navigation">
             <ul>
                 <li><a href="home.html" class="active">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -100,126 +97,136 @@
             </ul>
         </nav>
         <div class="right">
-            <button class="shop-btn" onclick="openOrderModal()">📦 Order</button>
-            <button class="logout-btn" onclick="logout()" id="logoutBtn">Sign Out</button>
+            <button class="shop-btn" type="button" onclick="openOrderModal()">📦 Order</button>
+            <button class="logout-btn" type="button" onclick="logout()" id="logoutBtn">Sign Out</button>
         </div>
     </header>
-    <div class="slider">
-        <div class="slides">
-            <img src="../assets/f1.jpg" alt="Furniture 1">
-            <img src="../assets/f2.jpg" alt="Furniture 2">
-            <img src="../assets/f3.jpg" alt="Furniture 3">
-        </div>
-        <button class="slider-arrow prev" onclick="prevSlide()">❮</button>
-        <button class="slider-arrow next" onclick="nextSlide()">❯</button>
-        <div class="slider-controls">
-            <div class="slider-dot active" onclick="goToSlide(0)"></div>
-            <div class="slider-dot" onclick="goToSlide(1)"></div>
-            <div class="slider-dot" onclick="goToSlide(2)"></div>
-        </div>
-    </div>
-    <!-- Wooden Furniture Background -->
-    <div class="heading-wrapper">
-        <div class="furniture-bg"></div>
-        <div class="heading">
-            <h1>Welcome to GN Furniture</h1>
-            <p id="p1">Your one-stop shop for quality furniture</p>
-            <p id="p2">We provide stylish, durable, and affordable furniture you can trust.
-                Designed with care to bring comfort and beauty to your home.
-                Quality furniture that makes your home feel warm and welcoming.
-                Modern furniture crafted for comfort, style, and everyday living.</p>
-        </div>
-    </div>
-    <div class="container">
-        <h3>Explore Our Collections</h3>
-        <div class="cards">
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1309042110/photo/interior-design-of-stylish-dining-room-interior-with-family-wooden-table-modern-chairs-plate.jpg?s=1024x1024&w=is&k=20&c=a1SzMh8OFKOsl33rxcvFhekrn49PKiD0d8VZA2n-6Yg="
-                    alt="Dining Room">
-                <h3>Dining Room</h3>
-                <p class="price">₹10 - ₹20</p>
+
+    <main id="main-content" class="site-main">
+        <section class="hero-shell" aria-labelledby="home-hero-title">
+            <div class="slider">
+                <div class="slides">
+                    <img src="../assets/f1.jpg" alt="Furniture 1">
+                    <img src="../assets/f2.jpg" alt="Furniture 2">
+                    <img src="../assets/f3.jpg" alt="Furniture 3">
+                </div>
+                <button class="slider-arrow prev" type="button" onclick="prevSlide()">❮</button>
+                <button class="slider-arrow next" type="button" onclick="nextSlide()">❯</button>
+                <div class="slider-controls">
+                    <div class="slider-dot active" onclick="goToSlide(0)"></div>
+                    <div class="slider-dot" onclick="goToSlide(1)"></div>
+                    <div class="slider-dot" onclick="goToSlide(2)"></div>
+                </div>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1459550764/photo/interior-of-modern-house-dining-room-with-wooden-table.jpg?s=1024x1024&w=is&k=20&c=dmZcW1PThMtp8jGLha-kFERFdePwzzrJ2Utw4qeVhC0="
-                    alt="Living Room">
-                <h3>Living Room</h3>
-                <p class="price">₹10 - ₹20</p>
+            <div class="hero-copy">
+                <p class="eyebrow">Custom furniture studio</p>
+                <h1 id="home-hero-title">Beautiful spaces start with furniture that feels personal.</h1>
+                <p>From bespoke wardrobes to stylish dining sets, GN Furniture blends craftsmanship and comfort to make every room feel exceptional.</p>
+                <div class="hero-actions">
+                    <a class="btn" href="products.html">Explore products</a>
+                    <a class="btn btn-secondary" href="contact.html">Book a consultation</a>
+                </div>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
-                    alt="Office Furniture">
-                <h3>Office Furniture</h3>
-                <p class="price">₹10 - ₹20</p>
+        </section>
+
+        <section class="section section-light">
+            <div class="section-heading">
+                <p class="eyebrow">Why clients choose us</p>
+                <h2>Trusted design, dependable quality, and a smooth experience.</h2>
+                <p>We combine modern style with careful craftsmanship to create furniture that looks elegant and stands the test of time.</p>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
-                    alt="Office Furniture">
-                <h3>Office Furniture</h3>
-                <p class="price">₹10 - ₹20</p>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <h3>Custom-built pieces</h3>
+                    <p>Furniture tailored to your space, taste, and usage.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Premium materials</h3>
+                    <p>Durable finishes and strong joins for long-lasting comfort.</p>
+                </article>
+                <article class="feature-card">
+                    <h3>Fast support</h3>
+                    <p>Friendly guidance for orders, delivery, and after-sales care.</p>
+                </article>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
-                    alt="Office Furniture">
-                <h3>Office Furniture</h3>
-                <p class="price">₹10 - ₹20</p>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <p class="eyebrow">Featured collection</p>
+                <h2>Explore our most-loved furniture styles</h2>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1309042110/photo/interior-design-of-stylish-dining-room-interior-with-family-wooden-table-modern-chairs-plate.jpg?s=1024x1024&w=is&k=20&c=a1SzMh8OFKOsl33rxcvFhekrn49PKiD0d8VZA2n-6Yg="
-                    alt="Dining Room">
-                <h3>Dining Room</h3>
-                <p class="price">₹10 - ₹20</p>
+            <div class="cards">
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" alt="Dining Room">
+                    <h3>Dining Room</h3>
+                    <p class="price">₹10,000 - ₹20,000</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=900&q=80" alt="Living Room">
+                    <h3>Living Room</h3>
+                    <p class="price">₹12,000 - ₹24,000</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80" alt="Office Furniture">
+                    <h3>Office Furniture</h3>
+                    <p class="price">₹8,000 - ₹18,000</p>
+                </div>
+                <div class="card">
+                    <img src="https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=900&q=80" alt="Wardrobes">
+                    <h3>Wardrobes</h3>
+                    <p class="price">₹15,000 - ₹28,000</p>
+                </div>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1459550764/photo/interior-of-modern-house-dining-room-with-wooden-table.jpg?s=1024x1024&w=is&k=20&c=dmZcW1PThMtp8jGLha-kFERFdePwzzrJ2Utw4qeVhC0="
-                    alt="Living Room">
-                <h3>Living Room</h3>
-                <p class="price">₹10 - ₹20</p>
+        </section>
+
+        <section class="section type-section">
+            <div class="section-heading">
+                <p class="eyebrow">Furniture categories</p>
+                <h2>Types of furniture we craft with care</h2>
             </div>
-            <div class="card">
-                <img src="https://media.istockphoto.com/id/1824153281/photo/picture-of-a-classic-wooden-table-and-chair-set-for-eating-in-the-office-cafeteria.jpg?s=1024x1024&w=is&k=20&c=7-w-qlWxcH_Hin2662xlWWaDuJ66g1Mny8Vdi_1XlqY="
-                    alt="Office Furniture">
-                <h3>Office Furniture</h3>
-                <p class="price">₹10 - ₹20</p>
+            <div class="type">
+                <div class="b1">
+                    <img src="../assets/bedroom.jpg" alt="Bedroom Furniture">
+                    <p>Bedroom Furniture</p>
+                    <p class="price">₹10,000 - ₹20,000</p>
+                </div>
+                <div class="b1">
+                    <img src="../assets/living.jpg" alt="Living Room Furniture">
+                    <p>Living Room Furniture</p>
+                    <p class="price">₹12,000 - ₹24,000</p>
+                </div>
+                <div class="b1">
+                    <img src="../assets/dining.jpg" alt="Dining Room Furniture">
+                    <p>Dining Room Furniture</p>
+                    <p class="price">₹11,000 - ₹22,000</p>
+                </div>
+                <div class="b1">
+                    <img src="../assets/office.jpg" alt="Office Furniture">
+                    <p>Office Furniture</p>
+                    <p class="price">₹8,000 - ₹18,000</p>
+                </div>
+                <div class="b1">
+                    <img src="../assets/kitchen.jpg" alt="Kitchen Furniture">
+                    <p>Kitchen Furniture</p>
+                    <p class="price">₹9,000 - ₹19,000</p>
+                </div>
+                <div class="b1">
+                    <img src="../assets/outdoor.jpg" alt="Outdoor Furniture">
+                    <p>Outdoor Furniture</p>
+                    <p class="price">₹7,000 - ₹16,000</p>
+                </div>
             </div>
-        </div>
-    </div>
-    <div class="type">
-        <div style="width: 100%; text-align: center; margin-bottom: 20px;">
-            <p class="f_para">Types of Furniture We Made</p>
-        </div>
-        <div class="b1">
-            <img src="../assets/bedroom.jpg" alt="Bedroom Furniture">
-            <p>Bedroom Furniture</p>
-            <p class="price">₹10 - ₹20</p>
-        </div>
-        <div class="b1">
-            <img src="../assets/living.jpg" alt="Living Room Furniture">
-            <p>Living Room Furniture</p>
-            <p class="price">₹10 - ₹20</p>
-        </div>
-        <div class="b1">
-            <img src="../assets/dining.jpg" alt="Dining Room Furniture">
-            <p>Dining Room Furniture</p>
-            <p class="price">₹10 - ₹20</p>
-        </div>
-        <div class="b1">
-            <img src="../assets/office.jpg" alt="Office Furniture">
-            <p>Office Furniture</p>
-            <p class="price">₹10 - ₹20</p>
-        </div>
-        <div class="b1">
-            <img src="../assets/kitchen.jpg" alt="Kitchen Furniture">
-            <p>Kitchen Furniture</p>
-            <p class="price">₹10 - ₹20</p>
-        </div>
-        <div class="b1">
-            <img src="../assets/outdoor.jpg" alt="Outdoor Furniture">
-            <p>Outdoor Furniture</p>
-            <p class="price">₹10 - ₹20</p>
-        </div>
-    </div>
-    
-    <div class="footer">
+        </section>
+
+        <section class="section cta-banner">
+            <h2>Ready to transform your space?</h2>
+            <p>Let us help you find furniture that suits your home, lifestyle, and budget.</p>
+            <a class="btn" href="contact.html">Contact GN Furniture</a>
+        </section>
+    </main>
+
+    <footer class="footer">
         <h1>GN Furniture</h1>
         <p>Quick Links</p>
         <ul>
@@ -232,12 +239,10 @@
         <p>Building modern furnitures | 40 years of experience | We offer all types of furniture</p>
         <p>Contact us at ammomin009@gmail.com | Phone: +91 9726029382</p>
         <p>Address: Porda wada ni chali, Near S.S hospital. Petlad-388450</p>
-        <p>For Order please contact us at the phone number or email address provided and you can also contact us from contact page.</p>
         <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
-    </div>
+    </footer>
 
     <script src="../js/slider.js"></script>
-    <script type="module" src="../js/script-home.js"></script>
+    <script type="module" src="../js/script-home.js?v=20260702"></script>
 </body>
-
 </html>

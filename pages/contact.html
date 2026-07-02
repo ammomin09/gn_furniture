@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Get in touch with GN Furniture for custom furniture inquiries, orders, and support." />
     <title>Contact - GN Furniture</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <header>
-        <div class="left">
-            GN Furniture
-        </div>
-        <nav class="mid">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="left">GN Furniture</div>
+        <nav class="mid" aria-label="Primary navigation">
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -22,48 +22,47 @@
             </ul>
         </nav>
         <div class="right">
-            <button class="logout-btn" onclick="logout()" id="logoutBtn">Sign Out</button>
+            <button class="logout-btn" type="button" onclick="logout()" id="logoutBtn">Sign Out</button>
         </div>
     </header>
 
-    <div class="container">
-        <h1 style="text-align: center; margin-top: 40px;">Contact Us</h1>
-        
-        <div style="max-width: 600px; margin: 40px auto; padding: 30px; background: white; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #4f4e4e; margin-bottom: 10px;">📧 Email</h3>
-                <p style="color: #666; font-size: 16px; text-align: center;">ammomin009@gmail.com</p>
+    <main id="main-content" class="site-main">
+        <section class="section section-light">
+            <div class="section-heading">
+                <p class="eyebrow">Contact GN Furniture</p>
+                <h2>We would love to help with your next furniture project.</h2>
+                <p>Reach out by phone, email, or through the form below for custom orders or design consultations.</p>
             </div>
-
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #4f4e4e; margin-bottom: 10px;">📱 Phone</h3>
-                <p style="color: #666; font-size: 16px; text-align: center;">+91 9726029382</p>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <h3>Get in touch</h3>
+                    <ul class="contact-list">
+                        <li><strong>Email:</strong> ammomin009@gmail.com</li>
+                        <li><strong>Phone:</strong> +91 9726029382</li>
+                        <li><strong>Address:</strong> Porda wada ni chali, Near S.S hospital, Petlad-388450</li>
+                        <li><strong>Hours:</strong> Mon-Fri 9:00 AM to 6:00 PM | Sat 10:00 AM to 4:00 PM</li>
+                    </ul>
+                </div>
+                <form class="contact-card contact-form">
+                    <div class="form-group">
+                        <label for="contact-name">Name</label>
+                        <input id="contact-name" type="text" placeholder="Your name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-email">Email</label>
+                        <input id="contact-email" type="email" placeholder="you@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-message">Message</label>
+                        <textarea id="contact-message" rows="4" placeholder="Tell us about your idea or requirement" required></textarea>
+                    </div>
+                    <button class="btn" type="submit">Send message</button>
+                </form>
             </div>
+        </section>
+    </main>
 
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #4f4e4e; margin-bottom: 10px;">📍 Address</h3>
-                <p style="color: #666; font-size: 16px; text-align: center;">
-                    Porda wada ni chali, Near S.S hospital.<br>
-                    Petlad-388450
-                </p>
-            </div>
-
-            <div style="margin-bottom: 25px;">
-                <h3 style="color: #4f4e4e; margin-bottom: 10px;">⏰ Business Hours</h3>
-                <p style="color: #666; font-size: 16px; text-align: center;">
-                    Monday - Friday: 9:00 AM - 6:00 PM<br>
-                    Saturday: 10:00 AM - 4:00 PM<br>
-                    Sunday: Closed
-                </p>
-            </div>
-
-            <p style="color: #ff6b35; font-size: 16px; margin-top: 30px; text-align: center;">
-                We're here to help! Feel free to reach out for any inquiries or orders.
-            </p>
-        </div>
-    </div>
-
-    <div class="footer">
+    <footer class="footer">
         <h1>GN Furniture</h1>
         <p>Quick Links</p>
         <ul>
@@ -77,10 +76,8 @@
         <p>Contact us at ammomin009@gmail.com | Phone: +91 9726029382</p>
         <p>Address: Porda wada ni chali, Near S.S hospital. Petlad-388450</p>
         <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
-    </div>
+    </footer>
 
     <script type="module" src="../js/script-about.js"></script>
 </body>
-
 </html>
-

@@ -28,11 +28,47 @@ const orderModal = document.getElementById("orderModal");
 const orderError = document.getElementById("orderError");
 
 let isSubmitting = false;
+const WELCOME_POPUP_SHOWN_KEY = "gnFurnitureWelcomePopupShown";
+
+function getStoredCurrentUserProfile() {
+  try {
+    const rawProfile = localStorage.getItem("gnFurnitureCurrentUser");
+    return rawProfile ? JSON.parse(rawProfile) : null;
+  } catch (error) {
+    console.error("Error reading current user profile:", error);
+    return null;
+  }
+}
+
+function getStoredProfileForUser(user) {
+  const currentProfile = getStoredCurrentUserProfile();
+  if (currentProfile?.uid === user?.uid) {
+    return currentProfile;
+  }
+
+  try {
+    const rawProfiles = localStorage.getItem("gnFurnitureUsers");
+    const profiles = rawProfiles ? JSON.parse(rawProfiles) : {};
+    return Object.values(profiles).find((profile) => profile?.uid === user?.uid) || null;
+  } catch (error) {
+    console.error("Error reading stored profiles:", error);
+    return null;
+  }
+}
+
+function markWelcomePopupSeen() {
+  sessionStorage.setItem(WELCOME_POPUP_SHOWN_KEY, "true");
+  localStorage.setItem(WELCOME_POPUP_SHOWN_KEY, "true");
+}
+
+function shouldShowWelcomePopup() {
+  return sessionStorage.getItem(WELCOME_POPUP_SHOWN_KEY) !== "true" && localStorage.getItem(WELCOME_POPUP_SHOWN_KEY) !== "true";
+}
 
 // Close Welcome Popup Function
 window.closeWelcomePopup = function () {
   welcomePopupOverlay.classList.add("hidden-popup");
-  sessionStorage.setItem("popupShown", "true");
+  markWelcomePopupSeen();
 };
 
 // Logout Function
@@ -47,39 +83,40 @@ window.logout = async function () {
 };
 
 // Check User State - Hide logout button if not logged in
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, async (user) => {
   if (!user) {
     window.location.href = "../index.html";
   } else {
-    // Show welcome popup with user's name (only on first visit after login)
-    if (!sessionStorage.getItem("popupShown")) {
-      // Get user's first name from display name or username
-      let firstName = "Guest";
-      
-      if (user.displayName) {
-        firstName = user.displayName.split(' ')[0];
-      } else {
-        // Try to get username from Firestore
-        getDoc(doc(db, 'users', user.uid)).then(docSnap => {
-          if (docSnap.exists() && docSnap.data().username) {
-            firstName = docSnap.data().username.charAt(0).toUpperCase() + docSnap.data().username.slice(1);
-            popupUserName.textContent = firstName;
-          } else {
-            popupUserName.textContent = "Guest";
-          }
-        }).catch(error => {
-          console.error("Error fetching user data:", error);
-          popupUserName.textContent = "Guest";
-        });
+    const storedProfile = getStoredProfileForUser(user);
+    let firstName = "Guest";
+
+    if (storedProfile?.displayName) {
+      firstName = storedProfile.displayName.split(' ')[0];
+    } else if (storedProfile?.username) {
+      firstName = storedProfile.username.charAt(0).toUpperCase() + storedProfile.username.slice(1);
+    } else if (user.displayName) {
+      firstName = user.displayName.split(' ')[0];
+    } else if (user.email) {
+      firstName = user.email.split('@')[0];
+    }
+
+    popupUserName.textContent = firstName;
+
+    if (shouldShowWelcomePopup()) {
+      markWelcomePopupSeen();
+
+      try {
+        const docSnap = await getDoc(doc(db, 'users', user.uid));
+        if (docSnap.exists() && docSnap.data().username) {
+          firstName = docSnap.data().username.charAt(0).toUpperCase() + docSnap.data().username.slice(1);
+          popupUserName.textContent = firstName;
+        }
+      } catch (error) {
+        console.warn("Using local fallback for the welcome name:", error);
       }
-      
-      popupUserName.textContent = firstName;
-      
-      // Show popup with animation
+
       welcomePopupOverlay.classList.remove("hidden-popup");
-      sessionStorage.setItem("popupShown", "true");
-      
-      // Auto-close popup after 8 seconds
+
       setTimeout(() => {
         window.closeWelcomePopup();
       }, 8000);

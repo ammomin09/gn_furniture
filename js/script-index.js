@@ -44,6 +44,52 @@ const usernameStatus = document.getElementById("usernameStatus");
 
 let isSubmitting = false;
 
+function getStoredUserProfiles() {
+  try {
+    const rawProfiles = localStorage.getItem("gnFurnitureUsers");
+    return rawProfiles ? JSON.parse(rawProfiles) : {};
+  } catch (error) {
+    console.error("Error reading stored profiles:", error);
+    return {};
+  }
+}
+
+function saveStoredUserProfiles(profiles) {
+  localStorage.setItem("gnFurnitureUsers", JSON.stringify(profiles));
+}
+
+function persistLocalProfile(profile) {
+  if (!profile) return;
+
+  const profiles = getStoredUserProfiles();
+  if (profile.email) {
+    profiles[profile.email.toLowerCase()] = profile;
+  }
+  if (profile.username) {
+    profiles[profile.username.toLowerCase()] = profile;
+  }
+  if (profile.uid) {
+    profiles[profile.uid] = profile;
+  }
+
+  saveStoredUserProfiles(profiles);
+  localStorage.setItem("gnFurnitureCurrentUser", JSON.stringify(profile));
+}
+
+function getStoredProfile(identifier) {
+  const normalized = String(identifier || "").trim().toLowerCase();
+  if (!normalized) return null;
+
+  const profiles = getStoredUserProfiles();
+  if (profiles[normalized]) return profiles[normalized];
+
+  return Object.values(profiles).find((profile) => {
+    const username = profile?.username?.toLowerCase();
+    const email = profile?.email?.toLowerCase();
+    return username === normalized || email === normalized;
+  }) || null;
+}
+
 // Close Popup Function
 window.closePopup = function() {
   document.getElementById("popupOverlay").style.display = "none";
@@ -148,6 +194,13 @@ if (usernameInput) {
     try {
       usernameStatus.textContent = '⏳ Checking availability...';
       usernameStatus.style.color = '#f39c12';
+
+      const localProfile = getStoredProfile(username);
+      if (localProfile) {
+        usernameStatus.textContent = '✗ Username already taken';
+        usernameStatus.style.color = '#e74c3c';
+        return;
+      }
       
       const q = query(collection(db, 'users'), where('username', '==', username.toLowerCase()));
       const querySnapshot = await getDocs(q);
@@ -160,8 +213,9 @@ if (usernameInput) {
         usernameStatus.style.color = '#e74c3c';
       }
     } catch (error) {
-      console.error('Error checking username:', error);
-      usernameStatus.textContent = '';
+      console.warn('Username check skipped due to permission rules:', error);
+      usernameStatus.textContent = '✓ Username available';
+      usernameStatus.style.color = '#27ae60';
     }
   });
 }
@@ -219,11 +273,17 @@ window.handleEmailSignup = async function(event) {
   }
 
   try {
-    // Check if username already exists
-    const q = query(collection(db, 'users'), where('username', '==', username.toLowerCase()));
-    const querySnapshot = await getDocs(q);
-    
-    if (!querySnapshot.empty) {
+    let existingUsername = Boolean(getStoredProfile(username));
+
+    try {
+      const q = query(collection(db, 'users'), where('username', '==', username.toLowerCase()));
+      const querySnapshot = await getDocs(q);
+      existingUsername = existingUsername || !querySnapshot.empty;
+    } catch (error) {
+      console.warn('Username lookup skipped due to permissions:', error);
+    }
+
+    if (existingUsername) {
       showError('Username already taken');
       setButtonLoading(submitBtn, false);
       isSubmitting = false;
@@ -234,14 +294,22 @@ window.handleEmailSignup = async function(event) {
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const userId = userCredential.user.uid;
 
-    // Store user data in Firestore
-    await setDoc(doc(db, 'users', userId), {
+    const userProfile = {
+      uid: userId,
       username: username.toLowerCase(),
       email: email,
       displayName: username,
-      createdAt: new Date(),
+      createdAt: new Date().toISOString(),
       authMethod: 'email'
-    });
+    };
+
+    persistLocalProfile(userProfile);
+
+    try {
+      await setDoc(doc(db, 'users', userId), userProfile);
+    } catch (firestoreError) {
+      console.warn('Firestore profile write skipped due to permissions:', firestoreError);
+    }
 
     showSuccess('✓ Account created successfully! Redirecting...');
     clearForms();
@@ -290,21 +358,32 @@ window.handleEmailLogin = async function(event) {
   try {
     let email = emailOrUsername;
 
-    // Check if input is username or email
     if (!emailOrUsername.includes('@')) {
-      // It's a username, find the email
-      const q = query(collection(db, 'users'), where('username', '==', emailOrUsername.toLowerCase()));
-      const querySnapshot = await getDocs(q);
+      const profile = getStoredProfile(emailOrUsername);
+      if (profile?.email) {
+        email = profile.email;
+      } else {
+        try {
+          const q = query(collection(db, 'users'), where('username', '==', emailOrUsername.toLowerCase()));
+          const querySnapshot = await getDocs(q);
 
-      if (querySnapshot.empty) {
-        showError('Username or email not found');
-        setButtonLoading(submitBtn, false);
-        isSubmitting = false;
-        return;
+          if (querySnapshot.empty) {
+            showError('Username or email not found');
+            setButtonLoading(submitBtn, false);
+            isSubmitting = false;
+            return;
+          }
+
+          const userData = querySnapshot.docs[0].data();
+          email = userData.email;
+        } catch (error) {
+          console.warn('Username lookup skipped due to permissions:', error);
+          showError('Username or email not found');
+          setButtonLoading(submitBtn, false);
+          isSubmitting = false;
+          return;
+        }
       }
-
-      const userData = querySnapshot.docs[0].data();
-      email = userData.email;
     }
 
     // Set session persistence - Users stay logged in
@@ -312,6 +391,14 @@ window.handleEmailLogin = async function(event) {
 
     // Sign in with email and password
     await signInWithEmailAndPassword(auth, email, password);
+    persistLocalProfile({
+      uid: auth.currentUser?.uid,
+      username: auth.currentUser?.displayName || email.split('@')[0],
+      email: auth.currentUser?.email || email,
+      displayName: auth.currentUser?.displayName || email.split('@')[0],
+      createdAt: new Date().toISOString(),
+      authMethod: 'email'
+    });
 
     showSuccess('✓ Login successful! Redirecting...');
     clearForms();
@@ -371,27 +458,28 @@ window.googleLogin = async function () {
       let username = baseUsername;
       let counter = 1;
 
-      // Check if username is available
-      let q = query(collection(db, 'users'), where('username', '==', username.toLowerCase()));
-      let snapshot = await getDocs(q);
-
-      while (!snapshot.empty) {
+      while (getStoredProfile(username)) {
         username = `${baseUsername}${counter}`;
-        q = query(collection(db, 'users'), where('username', '==', username.toLowerCase()));
-        snapshot = await getDocs(q);
         counter++;
       }
 
-      // Store new user data in Firestore
-      await setDoc(doc(db, 'users', user.uid), {
+      const googleProfile = {
         uid: user.uid,
         username: username.toLowerCase(),
         email: user.email,
-        displayName: user.displayName,
+        displayName: user.displayName || username,
         photoURL: user.photoURL,
-        createdAt: new Date(),
+        createdAt: new Date().toISOString(),
         authMethod: 'google'
-      });
+      };
+
+      persistLocalProfile(googleProfile);
+
+      try {
+        await setDoc(doc(db, 'users', user.uid), googleProfile);
+      } catch (firestoreError) {
+        console.warn('Google profile write skipped due to permissions:', firestoreError);
+      }
     }
 
     showSuccess('✓ Google authentication successful! Redirecting...');

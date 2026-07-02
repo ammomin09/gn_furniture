@@ -30,25 +30,18 @@ onAuthStateChanged(auth, (user) => {
 });
 const profile = document.querySelector(".profile");
 
-const observer = new IntersectionObserver((entries) => {
-
+if (profile) {
+  const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-
-        if(entry.isIntersecting){
-
-            // ADD ANIMATION
-            entry.target.classList.add("show");
-
-        } else {
-
-            // REMOVE ANIMATION WHEN OUTSIDE VIEW
-            entry.target.classList.remove("show");
-        }
-
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      } else {
+        entry.target.classList.remove("show");
+      }
     });
+  }, {
+    threshold: 0.3
+  });
 
-},{
-    threshold:0.3
-});
-
-observer.observe(profile);
+  observer.observe(profile);
+}

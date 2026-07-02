@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse GN Furniture's premium collection of custom furniture for every room." />
     <title>Products - GN Furniture</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <header>
-        <div class="left">
-            GN Furniture
-        </div>
-        <nav class="mid">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="left">GN Furniture</div>
+        <nav class="mid" aria-label="Primary navigation">
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="about.html">About</a></li>
@@ -22,18 +22,71 @@
             </ul>
         </nav>
         <div class="right">
-            <button class="logout-btn" onclick="logout()" id="logoutBtn">Sign Out</button>
+            <button class="logout-btn" type="button" onclick="logout()" id="logoutBtn">Sign Out</button>
         </div>
     </header>
 
-    <div class="container">
-        <h1 style="text-align: center; margin-top: 40px;">Our Products</h1>
-        <p style="text-align: center; margin-top: 20px; font-size: 18px; color: #666;">
-            Coming soon! Browse our premium furniture collection.
-        </p>
-    </div>
+    <main id="main-content" class="site-main">
+        <section class="section section-light">
+            <div class="section-heading">
+                <p class="eyebrow">Our products</p>
+                <h2>Premium furniture for every corner of your home</h2>
+                <p>Browse a curated selection of customized pieces designed for elegance, comfort, and daily use.</p>
+            </div>
+            <div class="product-grid">
+                <article class="product-card">
+                    <img src="../assets/bedroom.jpg" alt="Bedroom furniture collection">
+                    <div class="product-card__body">
+                        <h3>Bedroom Sets</h3>
+                        <p>Wardrobes, beds, and bedside units crafted for a serene retreat.</p>
+                        <span>Starting from ₹15,000</span>
+                    </div>
+                </article>
+                <article class="product-card">
+                    <img src="../assets/living.jpg" alt="Living room furniture collection">
+                    <div class="product-card__body">
+                        <h3>Living Room Suites</h3>
+                        <p>Stylish sofas, coffee tables, and storage units for modern homes.</p>
+                        <span>Starting from ₹18,000</span>
+                    </div>
+                </article>
+                <article class="product-card">
+                    <img src="../assets/dining.jpg" alt="Dining furniture collection">
+                    <div class="product-card__body">
+                        <h3>Dining Sets</h3>
+                        <p>Elegant tables and chairs for gatherings, family meals, and hosting.</p>
+                        <span>Starting from ₹12,000</span>
+                    </div>
+                </article>
+                <article class="product-card">
+                    <img src="../assets/office.jpg" alt="Office furniture collection">
+                    <div class="product-card__body">
+                        <h3>Office Furniture</h3>
+                        <p>Comfort-driven desks, shelves, and cabinets for productive spaces.</p>
+                        <span>Starting from ₹10,000</span>
+                    </div>
+                </article>
+                <article class="product-card">
+                    <img src="../assets/kitchen.jpg" alt="Kitchen furniture collection">
+                    <div class="product-card__body">
+                        <h3>Kitchen Units</h3>
+                        <p>Functional cabinetry and storage designed with everyday convenience in mind.</p>
+                        <span>Starting from ₹14,000</span>
+                    </div>
+                </article>
+                <article class="product-card">
+                    <img src="../assets/outdoor.jpg" alt="Outdoor furniture collection">
+                    <div class="product-card__body">
+                        <h3>Outdoor Furniture</h3>
+                        <p>Weather-friendly pieces that bring comfort and style to open spaces.</p>
+                        <span>Starting from ₹9,000</span>
+                    </div>
+                </article>
+            </div>
+        </section>
+    </main>
 
-    <div class="footer">
+    <footer class="footer">
         <h1>GN Furniture</h1>
         <p>Quick Links</p>
         <ul>
@@ -47,9 +100,8 @@
         <p>Contact us at ammomin009@gmail.com | Phone: +91 9726029382</p>
         <p>Address: Porda wada ni chali, Near S.S hospital. Petlad-388450</p>
         <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
-    </div>
+    </footer>
 
     <script type="module" src="../js/script-about.js"></script>
 </body>
-
 </html>

@@ -4,16 +4,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Learn about GN Furniture's journey, craftsmanship, and commitment to personalized furniture design." />
     <title>About - GN Furniture</title>
     <link rel="stylesheet" href="../css/style.css">
 </head>
 
 <body>
-    <header>
-        <div class="left">
-            GN Furniture
-        </div>
-        <nav class="mid">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <header class="site-header">
+        <div class="left">GN Furniture</div>
+        <nav class="mid" aria-label="Primary navigation">
             <ul>
                 <li><a href="home.html">Home</a></li>
                 <li><a href="about.html" class="active">About</a></li>
@@ -22,67 +22,84 @@
             </ul>
         </nav>
         <div class="right">
-            <button class="logout-btn" onclick="logout()" id="logoutBtn">Sign Out</button>
+            <button class="logout-btn" type="button" onclick="logout()" id="logoutBtn">Sign Out</button>
         </div>
     </header>
-    <div class="slider">
-        <div class="slides">
-            <img src="../assets/f1.jpg" alt="Furniture 1">
-            <img src="../assets/f2.jpg" alt="Furniture 2">
-            <img src="../assets/f3.jpg" alt="Furniture 3">
-        </div>
-        <button class="slider-arrow prev" onclick="prevSlide()">❮</button>
-        <button class="slider-arrow next" onclick="nextSlide()">❯</button>
-        <div class="slider-controls">
-            <div class="slider-dot active" onclick="goToSlide(0)"></div>
-            <div class="slider-dot" onclick="goToSlide(1)"></div>
-            <div class="slider-dot" onclick="goToSlide(2)"></div>
-        </div>
-    </div>
-    </div>
-    <div class="introduction">
-        <div class="about">
-            <h1>We are GN Furniture</h1>
-            <p>Welcome to GN Furniture, your trusted partner for all your furniture needs. With over 40 years of
-                experience, we have established ourselves as a leading name in the furniture industry, known for our
-                commitment to quality, style, and customer satisfaction.</p>
-        </div>
-        <div class="intro">
-            <h1>Our Story</h1>
-            <p>I am GulamAbbas Momin the son of GulamHusain Momin and I am the owner of GN Furniture. My father was a
-                professional carpenter with a passion for creating beautiful, durable furniture. Speciality in hand made
-                custom furniture and produce high-quality pieces that stand the test of time. At present i continue his
-                legacy and strive to provide exceptional service and quality furniture to our customers.</p>
-        </div>
-    </div>
-    <div class="profile">
-        <img src="../assets/papa.jpg" alt="Profile Image">
-        <div class="details">
-            <h1>GulamAbbas Momin</h1>
-            <p class="ga">Owner, GN Furniture</p>
-            <p>GulamAbbas Momin is also a professional furniture maker with a keen eye for detail and a commitment
-                to quality craftsmanship. He has 40 years of experience in the industry. Making Customized Furniture for
-                homes and apartments with high quality standard and User Satisfaction.</p>
-        </div>
-    </div>
-    <div class="about-container">
-        <h1>Customized Furniture that we made in homes and apartments</h1>
-        <div class="ab-card">
-            <div class="ab-box"><img src="../assets/ab1.jpeg" alt="product"><p>product1</p></div>
-            <div class="ab-box"><img src="../assets/ab2.jpeg" alt="product"><p>product2</p></div>
-            <div class="ab-box"><img src="../assets/ab3.jpeg" alt="product"><p>product3</p></div>
-            <div class="ab-box"><img src="../assets/ab4.jpeg" alt="product"><p>product4</p></div>
-            <div class="ab-box"><img src="../assets/ab5.jpeg" alt="product"><p>product5</p></div>
-        </div>
-        <div class="ab-card">
-            <div class="ab-box"><img src="../assets/ab1.jpeg" alt="product"><p>product1</p></div>
-            <div class="ab-box"><img src="../assets/ab2.jpeg" alt="product"><p>product2</p></div>
-            <div class="ab-box"><img src="../assets/ab3.jpeg" alt="product"><p>product3</p></div>
-            <div class="ab-box"><img src="../assets/ab4.jpeg" alt="product"><p>product4</p></div>
-            <div class="ab-box"><img src="../assets/ab5.jpeg" alt="product"><p>product5</p></div>
-        </div>
-    </div>
-    <div class="footer">
+
+    <main id="main-content" class="site-main">
+        <section class="hero-shell hero-shell--compact" aria-labelledby="about-hero-title">
+            <div class="slider">
+                <div class="slides">
+                    <img src="../assets/f1.jpg" alt="Furniture 1">
+                    <img src="../assets/f2.jpg" alt="Furniture 2">
+                    <img src="../assets/f3.jpg" alt="Furniture 3">
+                </div>
+                <button class="slider-arrow prev" type="button" onclick="prevSlide()">❮</button>
+                <button class="slider-arrow next" type="button" onclick="nextSlide()">❯</button>
+                <div class="slider-controls">
+                    <div class="slider-dot active" onclick="goToSlide(0)"></div>
+                    <div class="slider-dot" onclick="goToSlide(1)"></div>
+                    <div class="slider-dot" onclick="goToSlide(2)"></div>
+                </div>
+            </div>
+            <div class="hero-copy hero-copy--compact">
+                <p class="eyebrow">About GN Furniture</p>
+                <h1 id="about-hero-title">Four decades of furniture craftsmanship rooted in trust.</h1>
+                <p>We create elegant, durable pieces for homes and offices that combine practical living with timeless design.</p>
+            </div>
+        </section>
+
+        <section class="section section-light">
+            <div class="section-heading">
+                <p class="eyebrow">Our story</p>
+                <h2>A family-led furniture business built on passion and precision.</h2>
+                <p>GN Furniture began with a carpenter's vision and grew into a trusted workshop known for custom-made furniture that stands the test of time.</p>
+            </div>
+            <div class="story-grid">
+                <article class="story-card">
+                    <h3>Craftsmanship</h3>
+                    <p>Every piece is shaped with careful detail and built to bring comfort, structure, and beauty into daily life.</p>
+                </article>
+                <article class="story-card">
+                    <h3>Experience</h3>
+                    <p>With over 40 years of experience, we understand how to balance design, durability, and affordability.</p>
+                </article>
+                <article class="story-card">
+                    <h3>Customer focus</h3>
+                    <p>We listen to your needs and create furniture that fits your space, style, and routine.</p>
+                </article>
+            </div>
+        </section>
+
+        <section class="section profile-section">
+            <div class="profile">
+                <img src="../assets/papa.jpg" alt="Founder GulamAbbas Momin">
+                <div class="details">
+                    <p class="eyebrow">Founder & owner</p>
+                    <h2>GulamAbbas Momin</h2>
+                    <p class="ga">Owner, GN Furniture</p>
+                    <p>GulamAbbas Momin continues a legacy of handcrafted furniture with a strong focus on quality, customization, and client satisfaction.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <p class="eyebrow">Our work</p>
+                <h2>Customized furniture created for homes and apartments</h2>
+            </div>
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="../assets/ab1.jpeg" alt="Custom furniture project 1"></div>
+                <div class="gallery-item"><img src="../assets/ab2.jpeg" alt="Custom furniture project 2"></div>
+                <div class="gallery-item"><img src="../assets/ab3.jpeg" alt="Custom furniture project 3"></div>
+                <div class="gallery-item"><img src="../assets/ab4.jpeg" alt="Custom furniture project 4"></div>
+                <div class="gallery-item"><img src="../assets/ab5.jpeg" alt="Custom furniture project 5"></div>
+                <div class="gallery-item"><img src="../assets/ab1.jpeg" alt="Custom furniture project 6"></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
         <h1>GN Furniture</h1>
         <p>Quick Links</p>
         <ul>
@@ -95,13 +112,10 @@
         <p>Building modern furnitures | 40 years of experience | We offer all types of furniture</p>
         <p>Contact us at ammomin009@gmail.com | Phone: +91 9726029382</p>
         <p>Address: Porda wada ni chali, Near S.S hospital. Petlad-388450</p>
-        <p>For Order please contact us at the phone number or email address provided and you can also contact us from contact page.</p>
         <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
-    </div>
+    </footer>
 
-    
-        <script src="../js/slider.js"></script>
+    <script src="../js/slider.js"></script>
     <script type="module" src="../js/script-about.js"></script>
 </body>
-
 </html>
