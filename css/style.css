@@ -25,17 +25,25 @@ html, body {
 }
 
 :root {
-    --color-bg: #FAF8F5;
-    --color-surface: #FFFFFF;
-    --color-text: #5C5346;
-    --color-muted: #7A7164;
-    --color-accent: #C17F59;
-    --color-accent-soft: #DDD5C7;
-    --color-footer: #F5EFE7;
-    --color-heading-light: #FFFFFF;
-    --color-primary: #5C5346;
-    --color-secondary: #DDD5C7;
+    /* === Navy & Brass Palette (Option C) === */
+    --color-primary: #1F3A5F;        /* Deep Navy — primary brand color */
+    --color-primary-dark: #142A47;   /* Navy pressed/hover */
+    --color-accent: #B08D57;         /* Antique Brass — highlights, CTAs */
+    --color-accent-dark: #8E6F3F;    /* Brass pressed/hover */
+    --color-accent-soft: #E8DFCA;    /* Light Brass tint */
+    --color-bg: #F0F2F5;             /* Light Gray — page background */
+    --color-surface: #FFFFFF;        /* Pure White — cards, modals */
+    --color-surface-soft: #F7F9FC;   /* Off-White — subtle surfaces */
+    --color-text: #1A1A1A;           /* Near-black body text */
+    --color-muted: #5A6473;          /* Slate gray for secondary text */
     --color-white: #FFFFFF;
+    --color-border: rgba(31, 58, 95, 0.12);
+    --color-footer-bg: #142A47;      /* Deep Navy footer */
+    --shadow-soft: 0 10px 30px rgba(31, 58, 95, 0.10);
+    --shadow-strong: 0 20px 50px rgba(20, 42, 71, 0.18);
+    /* Legacy aliases for backward compatibility */
+    --color-heading-light: var(--color-white);
+    --color-secondary: var(--color-accent-soft);
 }
 
 body {
@@ -561,15 +569,15 @@ body > *:not(.page-bg):not(.footer) {
         width: 95%;
         border-radius: 15px;
     }
-    
+
     .welcome-popup-modal h2 {
         font-size: 20px;
     }
-    
+
     .welcome-popup-modal p {
         font-size: 14px;
     }
-    
+
     .popup-action-btn {
         padding: 12px 30px;
         font-size: 14px;
@@ -1033,16 +1041,16 @@ ul li a{
     header {
         padding: 12px 15px;
     }
-    
+
     .left {
         font-size: 16px;
     }
-    
+
     ul li a {
         font-size: 15px;
         padding: 6px 10px;
     }
-    
+
     .shop-btn, .logout-btn {
         font-size: 13px;
         padding: 8px 12px;
@@ -1057,35 +1065,35 @@ ul li a{
         padding: 12px;
         gap: 12px;
     }
-    
+
     .left {
         font-size: 16px;
         width: 100%;
         text-align: center;
         flex: none;
     }
-    
+
     .mid {
         flex: none;
         width: 100%;
         min-width: auto;
     }
-    
+
     .mid ul {
         gap: 8px;
     }
-    
+
     ul li a {
         font-size: 13px;
         padding: 6px 8px;
     }
-    
+
     .right {
         width: 100%;
         justify-content: center;
         gap: 8px;
     }
-    
+
     .shop-btn, .logout-btn {
         font-size: 12px;
         padding: 9px 12px;
@@ -1101,29 +1109,29 @@ ul li a{
         padding: 10px;
         gap: 10px;
     }
-    
+
     .left {
         font-size: 14px;
         width: 100%;
         text-align: center;
         flex: none;
     }
-    
+
     .mid {
         flex: none;
         width: 100%;
         min-width: auto;
     }
-    
+
     .mid ul {
         gap: 4px;
         justify-content: center;
     }
-    
+
     .mid li {
         flex: 0 0 calc(50% - 2px);
     }
-    
+
     ul li a {
         font-size: 12px;
         padding: 8px 6px;
@@ -1132,13 +1140,13 @@ ul li a{
         align-items: center;
         justify-content: center;
     }
-    
+
     .right {
         width: 100%;
         justify-content: center;
         gap: 6px;
     }
-    
+
     .shop-btn, .logout-btn {
         font-size: 12px;
         padding: 10px 12px;
@@ -1278,34 +1286,34 @@ ul li a{
     .slider {
         height: 600px;
     }
-    
+
     .slides {
         height: 600px;
     }
-    
+
     .slides img {
         height: 600px;
     }
-    
+
     .slider-arrow {
         width: 50px;
         height: 50px;
         font-size: 24px;
     }
-    
+
     .slider-arrow.prev {
         left: 20px;
     }
-    
+
     .slider-arrow.next {
         right: 20px;
     }
-    
+
     .slider-controls {
         bottom: 25px;
         gap: 15px;
     }
-    
+
     .slider-dot {
         width: 14px;
         height: 14px;
@@ -1317,34 +1325,34 @@ ul li a{
     .slider {
         height: 480px;
     }
-    
+
     .slides {
         height: 480px;
     }
-    
+
     .slides img {
         height: 480px;
     }
-    
+
     .slider-arrow {
         width: 45px;
         height: 45px;
         font-size: 20px;
     }
-    
+
     .slider-arrow.prev {
         left: 15px;
     }
-    
+
     .slider-arrow.next {
         right: 15px;
     }
-    
+
     .slider-controls {
         bottom: 20px;
         gap: 12px;
     }
-    
+
     .slider-dot {
         width: 12px;
         height: 12px;
@@ -1357,34 +1365,34 @@ ul li a{
         height: 380px;
         margin-top: 5px;
     }
-    
+
     .slides {
         height: 380px;
     }
-    
+
     .slides img {
         height: 380px;
     }
-    
+
     .slider-arrow {
         width: 40px;
         height: 40px;
         font-size: 18px;
     }
-    
+
     .slider-arrow.prev {
         left: 10px;
     }
-    
+
     .slider-arrow.next {
         right: 10px;
     }
-    
+
     .slider-controls {
         bottom: 15px;
         gap: 10px;
     }
-    
+
     .slider-dot {
         width: 10px;
         height: 10px;
@@ -1397,34 +1405,34 @@ ul li a{
         height: 280px;
         margin-top: 5px;
     }
-    
+
     .slides {
         height: 280px;
     }
-    
+
     .slides img {
         height: 280px;
     }
-    
+
     .slider-arrow {
         width: 35px;
         height: 35px;
         font-size: 16px;
     }
-    
+
     .slider-arrow.prev {
         left: 8px;
     }
-    
+
     .slider-arrow.next {
         right: 8px;
     }
-    
+
     .slider-controls {
         bottom: 12px;
         gap: 8px;
     }
-    
+
     .slider-dot {
         width: 8px;
         height: 8px;
@@ -1500,15 +1508,15 @@ ul li a{
         font-size: 26px;
         margin-top: 40px;
     }
-    
+
     #p1 {
         font-size: 32px;
     }
-    
+
     #p2 {
         font-size: 18px;
     }
-    
+
     .heading h1 {
         font-size: 48px;
     }
@@ -1520,17 +1528,17 @@ ul li a{
         font-size: 22px;
         margin-top: 30px;
     }
-    
+
     #p1 {
         font-size: 26px;
         line-height: 2.2em;
     }
-    
+
     #p2 {
         font-size: 16px;
         line-height: 1.4em;
     }
-    
+
     .heading h1 {
         font-size: 36px;
     }
@@ -1543,18 +1551,18 @@ ul li a{
         margin-top: 25px;
         padding: 0 15px;
     }
-    
+
     #p1 {
         font-size: 22px;
         line-height: 2em;
     }
-    
+
     #p2 {
         font-size: 15px;
         line-height: 1.3em;
         padding: 0 10px;
     }
-    
+
     .heading h1 {
         font-size: 28px;
     }
@@ -1567,16 +1575,16 @@ ul li a{
         margin-top: 20px;
         padding: 0 10px;
     }
-    
+
     .heading h1 {
         font-size: 22px;
     }
-    
+
     #p1 {
         font-size: 17px;
         line-height: 1.7em;
     }
-    
+
     #p2 {
         font-size: 13px;
         line-height: 1.3em;
@@ -1878,12 +1886,12 @@ ul li a{
         gap: 20px;
         padding: 70px 40px;
     }
-    
+
     .type img {
         width: 200px;
         height: 240px;
     }
-    
+
     .type .f_para {
         font-size: 32px;
         margin-bottom: 20px;
@@ -1896,21 +1904,21 @@ ul li a{
         gap: 15px;
         padding: 50px 20px;
     }
-    
+
     .type img {
         width: 170px;
         height: 200px;
         margin-top: 15px;
     }
-    
+
     .type p {
         font-size: 14px;
     }
-    
+
     .type p.price {
         font-size: 12px;
     }
-    
+
     .type .f_para {
         font-size: 26px;
         margin-bottom: 15px;
@@ -1923,27 +1931,27 @@ ul li a{
         gap: 12px;
         padding: 40px 15px;
     }
-    
+
     .b1 {
         flex: 0 0 calc(50% - 6px);
     }
-    
+
     .type img {
         width: 100%;
         max-width: 140px;
         height: 160px;
         margin-top: 10px;
     }
-    
+
     .type p {
         font-size: 13px;
         margin-top: 6px;
     }
-    
+
     .type p.price {
         font-size: 11px;
     }
-    
+
     .type .f_para {
         font-size: 22px;
         margin-bottom: 10px;
@@ -1956,29 +1964,29 @@ ul li a{
         gap: 10px;
         padding: 30px 10px;
     }
-    
+
     .b1 {
         flex: 0 0 calc(50% - 5px);
         padding: 5px;
     }
-    
+
     .type img {
         width: 100%;
         max-width: 120px;
         height: 140px;
         margin-top: 8px;
     }
-    
+
     .type p {
         font-size: 12px;
         margin-top: 5px;
     }
-    
+
     .type p.price {
         font-size: 10px;
         margin-top: 3px;
     }
-    
+
     .type .f_para {
         font-size: 18px;
         margin-bottom: 10px;
@@ -2046,7 +2054,7 @@ ul li a{
 .about h1{
     color:rgb(8, 8, 8);
     opacity: 100%;
-    font-size: 28px;   
+    font-size: 28px;
     text-align: center;
 }
 .about p{
@@ -2080,20 +2088,20 @@ ul li a{
         gap: 15px;
         padding: 0 10px;
     }
-    
+
     .about h1 {
         font-size: 18px;
     }
-    
+
     .about p {
         font-size: 14px;
         padding: 0 10px;
     }
-    
+
     .intro h1 {
         font-size: 22px;
     }
-    
+
     .intro p {
         font-size: 14px;
         padding: 0 10px;
@@ -2104,20 +2112,20 @@ ul li a{
         gap: 20px;
         padding: 0 15px;
     }
-    
+
     .about h1 {
         font-size: 20px;
     }
-    
+
     .about p {
         font-size: 15px;
         padding: 0 15px;
     }
-    
+
     .intro h1 {
         font-size: 24px;
     }
-    
+
     .intro p {
         font-size: 15px;
         padding: 0 15px;
@@ -2128,20 +2136,20 @@ ul li a{
         gap: 25px;
         padding: 0 20px;
     }
-    
+
     .about h1 {
         font-size: 22px;
     }
-    
+
     .about p {
         font-size: 16px;
         padding: 0 20px;
     }
-    
+
     .intro h1 {
         font-size: 26px;
     }
-    
+
     .intro p {
         font-size: 16px;
         padding: 0 20px;
@@ -2152,20 +2160,20 @@ ul li a{
         gap: 30px;
         padding: 0 40px;
     }
-    
+
     .about h1 {
         font-size: 25px;
     }
-    
+
     .about p {
         font-size: 16px;
         padding: 0 40px;
     }
-    
+
     .intro h1 {
         font-size: 28px;
     }
-    
+
     .intro p {
         font-size: 16px;
         padding: 0 40px;
@@ -2246,28 +2254,28 @@ ul li a{
         gap:30px;
         padding:40px 20px;
     }
-    
+
     .profile img {
         width: 100%;
         max-width: 300px;
         height: auto;
     }
-    
+
     .details {
         max-width: 100%;
         text-align: center;
     }
-    
+
     .details h1 {
         font-size: 28px;
         margin-right: 0;
     }
-    
+
     .details p {
         font-size: 16px;
         margin-left: 0;
     }
-    
+
 }
 
 /* homemade */
@@ -2896,20 +2904,20 @@ main {
 }
 
 :root {
-    --color-bg: #FAF8F5;
+    --color-bg: #F0F2F5;
     --color-surface: #FFFFFF;
     --color-surface-strong: #FFFFFF;
-    --color-text: #5C5346;
-    --color-muted: #7A7164;
-    --color-accent: #C17F59;
-    --color-accent-dark: #A65F3C;
-    --color-accent-soft: #DDD5C7;
-    --color-primary: #5C5346;
-    --color-secondary: #DDD5C7;
+    --color-text: #1A1A1A;
+    --color-muted: #5A6473;
+    --color-accent: #B08D57;
+    --color-accent-dark: #8E6F3F;
+    --color-accent-soft: #E8DFCA;
+    --color-primary: #1F3A5F;
+    --color-secondary: #E8DFCA;
     --color-white: #FFFFFF;
-    --color-border: rgba(92, 83, 70, 0.12);
-    --shadow-soft: 0 18px 45px rgba(34, 24, 12, 0.10);
-    --shadow-strong: 0 24px 60px rgba(34, 24, 12, 0.16);
+    --color-border: rgba(31, 58, 95, 0.12);
+    --shadow-soft: 0 10px 30px rgba(31, 58, 95, 0.10);
+    --shadow-strong: 0 20px 50px rgba(20, 42, 71, 0.18);
 }
 
 body {
