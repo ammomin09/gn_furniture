@@ -5,10 +5,10 @@ import {
   signOut,
   onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-import { 
-  getFirestore, 
-  collection, 
-  doc, 
+import {
+  getFirestore,
+  collection,
+  doc,
   getDoc,
   addDoc,
   serverTimestamp
@@ -187,19 +187,19 @@ function setOrderButtonLoading(button, isLoading) {
 window.handleOrderSubmit = async function(event) {
   event.preventDefault();
   console.log('Order submit started');
-  
+
   if (isSubmitting) {
     console.log('Already submitting, returning');
     return;
   }
   isSubmitting = true;
-  
+
   hideOrderError();
   const submitBtn = event.target.querySelector('button[type="submit"]');
   setOrderButtonLoading(submitBtn, true);
 
   const user = auth.currentUser;
-  
+
   if (!user) {
     console.error('No user logged in');
     showOrderError('Please log in to place an order');
@@ -209,7 +209,7 @@ window.handleOrderSubmit = async function(event) {
   }
 
   console.log('Current user:', user.uid);
-  
+
   // Get form values
   const productName = document.getElementById('productName').value.trim();
   const quantity = parseInt(document.getElementById('quantity').value);
@@ -289,7 +289,7 @@ window.handleOrderSubmit = async function(event) {
   const selectedDate = new Date(deliveryDate);
   const today = new Date();
   today.setHours(0, 0, 0, 0);
-  
+
   if (selectedDate < today) {
     showOrderError('Delivery date must be in the future');
     setOrderButtonLoading(submitBtn, false);
@@ -299,7 +299,7 @@ window.handleOrderSubmit = async function(event) {
 
   try {
     console.log('Preparing order data...');
-    
+
     // Add order to Firestore
     const orderData = {
       userId: user.uid,
@@ -323,9 +323,9 @@ window.handleOrderSubmit = async function(event) {
     console.log('Adding to Firestore...');
 
     const docRef = await addDoc(collection(db, 'orders'), orderData);
-    
+
     console.log('Order placed successfully:', docRef.id);
-    
+
     // Show success message
     orderError.style.display = 'block';
     orderError.style.background = "#e6ffe6";
@@ -351,16 +351,16 @@ window.handleOrderSubmit = async function(event) {
     console.error('Order submission error:', error);
     console.error('Error code:', error.code);
     console.error('Error message:', error.message);
-    
+
     let errorMsg = error.message || 'Failed to place order. Please try again.';
-    
+
     // Handle specific Firestore errors
     if (error.code === 'permission-denied') {
       errorMsg = 'Permission denied. Please contact support.';
     } else if (error.code === 'unavailable') {
       errorMsg = 'Service unavailable. Please try again later.';
     }
-    
+
     showOrderError(errorMsg);
     setOrderButtonLoading(submitBtn, false);
     isSubmitting = false;
@@ -373,6 +373,37 @@ window.addEventListener('click', function (event) {
     window.closeOrderModal();
   }
 });
+
+// Navigation drawer (mobile) toggle
+(function initNavDrawer() {
+  const navToggle = document.getElementById('navToggle');
+  const primaryNav = document.getElementById('primaryNav');
+  const navBackdrop = document.getElementById('navBackdrop');
+  if (!navToggle || !primaryNav || !navBackdrop) return;
+
+  const setOpen = (isOpen) => {
+    primaryNav.classList.toggle('is-open', isOpen);
+    navBackdrop.classList.toggle('is-open', isOpen);
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  };
+
+  navToggle.addEventListener('click', function () {
+    setOpen(!primaryNav.classList.contains('is-open'));
+  });
+  navBackdrop.addEventListener('click', function () {
+    setOpen(false);
+  });
+  primaryNav.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', function () {
+      if (window.innerWidth <= 1024) setOpen(false);
+    });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setOpen(false);
+  });
+})();
 
 // Card Animation Observer
 const cards = document.querySelectorAll(".card");
