@@ -3,7 +3,7 @@
 let currentSlide = 0;
 const slides = document.querySelector('.slides');
 const sliderDots = document.querySelectorAll('.slider-dot');
-const totalSlides = 3; // Number of images in the slider
+const totalSlides = 5; // Number of images in the slider
 let autoplayInterval;
 
 // Initialize slider
