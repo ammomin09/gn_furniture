@@ -1253,11 +1253,14 @@ ul li a{
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
     z-index: 1100;
+    pointer-events: none;
 }
 .gn-drawer-backdrop.is-open {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
 }
+
 
 /* === Tablet: 769px - 1024px === */
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -1290,57 +1293,54 @@ ul li a{
 
 /* === Tablet & Mobile: 1024px and below -> drawer === */
 @media (max-width: 1024px) {
-    .gn-burger { display: inline-flex; }
+    /* Simple responsive navbar (no hamburger drawer). */
+    .gn-burger { display: none !important; }
 
+    /* Keep nav inline/visible */
     .gn-nav {
-        position: fixed;
-        top: 0;
-        right: 0;
-        height: 100vh;
-        width: 320px;
-        max-width: 85vw;
-        background: #FFFFFF;
-        box-shadow: -16px 0 50px rgba(20, 42, 71, 0.20);
-        z-index: 1200;
-        transform: translateX(100%);
-        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        padding: 96px 24px 24px;
-        overflow-y: auto;
-        flex: none;
-        justify-content: flex-start;
-    }
-    .gn-nav.is-open {
-        transform: translateX(0);
-    }
-    .gn-nav ul {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 4px;
-        background: transparent;
-        border: none;
-        padding: 0;
-        border-radius: 0;
-        width: 100%;
-    }
-    .gn-nav a {
-        width: 100%;
-        padding: 16px 20px;
-        font-size: 1rem;
-        border-radius: 12px;
-        justify-content: flex-start;
-    }
-    .gn-nav a::before { display: none; }
-    .gn-nav a:hover {
-        background: rgba(176, 141, 87, 0.10);
-        color: var(--color-accent-dark);
+        position: static;
+        height: auto;
+        width: auto;
+        max-width: none;
         transform: none;
+        transition: none;
+        padding: 0;
+        overflow: visible;
+        flex: 1 1 auto;
+        justify-content: flex-start;
+        pointer-events: auto;
+        background: transparent;
+        box-shadow: none;
     }
-    .gn-nav a.active {
-        background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-        color: #FFFFFF;
-        box-shadow: 0 6px 18px rgba(31, 58, 95, 0.25);
+
+    .gn-drawer-backdrop { display: none !important; }
+
+    .gn-nav ul {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        background: linear-gradient(135deg, rgba(31, 58, 95, 0.04), rgba(176, 141, 87, 0.06));
+        border: 1px solid rgba(31, 58, 95, 0.10);
+        border-radius: 999px;
+        width: auto;
+        padding: 6px;
     }
+
+    .gn-nav a {
+        width: auto;
+        padding: 8px 14px;
+        font-size: 0.92rem;
+        border-radius: 999px;
+        justify-content: center;
+        white-space: nowrap;
+    }
+
+    .gn-nav a::before { display: block; }
 }
+
+
+
 
 /* === Mobile: Below 600px === */
 @media (max-width: 599px) {
@@ -4419,7 +4419,9 @@ select {
 /* === AUTH PAGE RESPONSIVE FIX === */
 @media (max-width: 768px) {
     .auth-shell {
-        flex-direction: column !important;
+        /* auth-shell is a grid on desktop; on mobile force stacking */
+        grid-template-columns: 1fr !important;
+        align-items: start;
         gap: 0;
         width: 100% !important;
         max-width: 100% !important;
@@ -4433,6 +4435,7 @@ select {
     .auth-body {
         padding: 12px;
         align-items: flex-start;
+        min-height: 100dvh;
     }
 
     .auth-container {
@@ -4468,15 +4471,43 @@ select {
     }
 }
 
-@media (max-width: 380px) {
+/* Extra small phones (avoid being squeezed by global min/max-width rules) */
+@media (max-width: 420px) {
+    .auth-shell {
+        padding: 0.35rem !important;
+    }
+
     .auth-container {
         padding: 16px !important;
     }
+
+    .auth-tabs {
+        gap: 8px;
+    }
+
+    .tab-btn {
+        padding: 10px 8px;
+        font-size: 13px;
+    }
+
+    .auth-btn,
+    .google-btn {
+        font-size: 13px;
+        padding: 11px;
+    }
+
+    .form-group label {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 380px) {
     .logo-badge {
         font-size: 11px;
         padding: 6px 12px;
     }
 }
+
 
 /* ============================================
    LEGACY .site-header MOBILE NAV (inner pages)
