@@ -4421,7 +4421,7 @@ select {
     .auth-shell {
         /* auth-shell is a grid on desktop; on mobile force stacking */
         grid-template-columns: 1fr !important;
-        align-items: start;
+        align-items: center !important;
         gap: 0;
         width: 100% !important;
         max-width: 100% !important;
@@ -4434,13 +4434,14 @@ select {
 
     .auth-body {
         padding: 12px;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: center;
         min-height: 100dvh;
     }
 
     .auth-container {
         width: 100% !important;
-        max-width: 100% !important;
+        max-width: 420px !important;
         padding: 20px !important;
         border-radius: 10px;
         margin: 0 auto;
@@ -4470,6 +4471,7 @@ select {
         margin: 0 12px;
     }
 }
+
 
 /* Extra small phones (avoid being squeezed by global min/max-width rules) */
 @media (max-width: 420px) {
