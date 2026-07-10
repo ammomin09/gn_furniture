@@ -1,9 +1,6 @@
-- [x] Inspect auth-related responsive CSS rules for index.html
-- [x] Implement phone-specific CSS fixes in css/style.css for .auth-shell/.auth-container
-- [x] Ensure no conflicts cause odd padding/width on <= 420px screens
-- [x] Verify popup/modal sizing/centering remains correct
-- [ ] Smoke-test in mobile viewport (manual browser check)
-
+# TODO
+- [x] Remove extra/duplicate CSS from `css/style.css` while preserving layout/JS functionality.
+- [x] Replace `css/style.css` with cleaned version.
 
 
 
