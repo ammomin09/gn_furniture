@@ -1,0 +1,76 @@
+/* Hero/shared-element transition helpers for the circular product showcase */
+
+/* Guard: only apply if the showcase markup exists */
+#circularProductHeroShell {
+  position: relative;
+}
+
+/* Hidden by default */
+#circularProductHeroShell.hero-hidden,
+#circularProductHeroShell .hero-media {
+  opacity: 0;
+}
+
+#circularProductHeroShell {
+  display: none;
+}
+
+#circularProductHeroShell:not(.hero-hidden) {
+  display: block;
+}
+
+/* Slot animating state */
+#circularProductHeroMediaSlot.hero-slot--animating {
+  filter: saturate(1.05);
+}
+
+/* Detail reveal stubs (staggered by GSAP) */
+.circular-hero-detail {
+  opacity: 0;
+}
+
+/* Color dots + size buttons (JS fills/selects) */
+.hero-color-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid rgba(31, 58, 95, 0.18);
+  background: var(--sw, #B08D57);
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(31, 58, 95, 0.12);
+  position: relative;
+}
+
+.hero-color-dot.is-active {
+  border-color: rgba(31, 58, 95, 0.75);
+  box-shadow: 0 0 0 4px rgba(176, 141, 87, 0.22);
+}
+
+.hero-size-btn {
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(31, 58, 95, 0.20);
+  background: rgba(255,255,255,0.80);
+  color: var(--color-primary, #1F3A5F);
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hero-size-btn:hover {
+  transform: translateY(-2px);
+}
+
+.hero-size-btn.is-active {
+  background: linear-gradient(135deg, var(--color-primary, #1F3A5F), var(--color-primary-dark, #142A47));
+  color: #fff;
+  border-color: transparent;
+  box-shadow: 0 12px 30px rgba(31, 58, 95, 0.20);
+}
+
+/* Wheel item hover */
+.circular-item img {
+  will-change: transform;
+}
+

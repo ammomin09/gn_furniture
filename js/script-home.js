@@ -449,3 +449,73 @@ boxes.forEach((box) => {
     observer2.observe(box);
 });
 
+// Circular slider (home featured collection)
+(function initCircularFeaturedSlider() {
+    const shell = document.getElementById('featuredCircularSlider');
+    const track = document.getElementById('featuredCircularTrack');
+    if (!shell || !track) return;
+
+    const btnPrev = shell.querySelector('.circular-slider-btn--prev');
+    const btnNext = shell.querySelector('.circular-slider-btn--next');
+
+    const itemCount = Math.max(1, track.querySelectorAll('.circular-item').length);
+    const angleStep = 360 / itemCount;
+    track.style.setProperty('--angleStep', `${angleStep}deg`);
+
+    let rotation = 0;
+    let rafId = null;
+    let lastTs = 0;
+    let paused = false;
+
+    const setRotation = (deg) => {
+        rotation = deg;
+        track.style.setProperty('--rotation', `${rotation}deg`);
+    };
+
+    const tick = (ts) => {
+        if (!lastTs) lastTs = ts;
+        const dt = ts - lastTs;
+        lastTs = ts;
+
+        if (!paused) {
+            // continuous circular motion
+            const speed = 9; // degrees per second
+            const delta = (speed * dt) / 1000;
+            setRotation(rotation + delta);
+        }
+
+        rafId = window.requestAnimationFrame(tick);
+    };
+
+    // Auto-rotate (disabled for side-by-side layout)
+    rafId = window.requestAnimationFrame(tick);
+
+
+    const stop = () => { paused = true; };
+    const start = () => { paused = false; lastTs = 0; };
+
+    shell.addEventListener('mouseenter', stop);
+    shell.addEventListener('mouseleave', start);
+
+    const rotateByStep = (dir) => {
+        paused = true;
+        lastTs = 0;
+        setRotation(rotation + dir * angleStep);
+        // resume after a short delay
+        window.clearTimeout(rotateByStep._t);
+        rotateByStep._t = window.setTimeout(() => {
+            paused = false;
+        }, 1400);
+    };
+
+    if (btnPrev) btnPrev.addEventListener('click', () => rotateByStep(-1));
+    if (btnNext) btnNext.addEventListener('click', () => rotateByStep(1));
+
+    // Keyboard rotate when focused
+    shell.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') rotateByStep(-1);
+        if (e.key === 'ArrowRight') rotateByStep(1);
+    });
+})();
+
+
