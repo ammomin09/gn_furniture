@@ -375,10 +375,13 @@ window.addEventListener('click', function (event) {
 });
 
 // Navigation drawer (mobile) toggle
+// Note: On some breakpoints we intentionally show a simple (non-drawer) nav.
+// So we only enable drawer behavior when the toggle exists and the nav is meant to be a drawer.
 (function initNavDrawer() {
   const navToggle = document.getElementById('navToggle');
   const primaryNav = document.getElementById('primaryNav');
   const navBackdrop = document.getElementById('navBackdrop');
+
   if (!navToggle || !primaryNav || !navBackdrop) return;
 
   const setOpen = (isOpen) => {
@@ -389,6 +392,23 @@ window.addEventListener('click', function (event) {
     document.body.style.overflow = isOpen ? 'hidden' : '';
   };
 
+  // If burger is hidden via CSS, avoid intercepting clicks.
+  if (window.getComputedStyle(navToggle).display === 'none') {
+    // Important: do not bind drawer/backdrop handlers that might block navigation.
+    return;
+  }
+
+  // Ensure backdrop never captures clicks when drawer is not open.
+    // Backdrop must never block taps while drawer is disabled by CSS
+    navBackdrop.style.pointerEvents = 'none';
+    navBackdrop.style.opacity = '0';
+    navBackdrop.style.visibility = 'hidden';
+
+    // Extra safety: ensure links are clickable
+    primaryNav.style.pointerEvents = 'auto';
+    navToggle.style.pointerEvents = 'auto';
+
+
   navToggle.addEventListener('click', function () {
     setOpen(!primaryNav.classList.contains('is-open'));
   });
@@ -397,13 +417,15 @@ window.addEventListener('click', function (event) {
   });
   primaryNav.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', function () {
-      if (window.innerWidth <= 1024) setOpen(false);
+      // Only close when drawer is actually in use
+      if (window.getComputedStyle(navToggle).display !== 'none') setOpen(false);
     });
   });
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setOpen(false);
   });
 })();
+
 
 // Card Animation Observer
 const cards = document.querySelectorAll(".card");
