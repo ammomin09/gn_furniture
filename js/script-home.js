@@ -453,7 +453,12 @@ boxes.forEach((box) => {
 (function initCircularFeaturedSlider() {
     const shell = document.getElementById('featuredCircularSlider');
     const track = document.getElementById('featuredCircularTrack');
-    if (!shell || !track) return;
+
+    // Home featured collection is horizontal in the new layout.
+    // product-showcase-circular.js handles horizontal interactions in that mode.
+    if (!shell || shell?.dataset?.sliderMode === 'horizontal') return;
+
+    if (!track) return;
 
     const btnPrev = shell.querySelector('.circular-slider-btn--prev');
     const btnNext = shell.querySelector('.circular-slider-btn--next');

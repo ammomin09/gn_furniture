@@ -62,10 +62,15 @@
 
   // -------------------- DOM hooks --------------------
   const wheelShell = $('#featuredCircularSlider');
-  const track = $('#featuredCircularTrack');
-  const items = $$('.circular-item', track);
 
-  if (!wheelShell || !track || items.length < 1) return;
+  const sliderMode = wheelShell?.dataset?.sliderMode === 'horizontal' ? 'horizontal' : 'circular';
+  const isHorizontal = sliderMode === 'horizontal';
+
+  // Circular mode hooks
+  const track = !isHorizontal ? $('#featuredCircularTrack') : null;
+  const items = !isHorizontal && track ? $$('.circular-item', track) : $$('.circular-item', wheelShell);
+
+  if (!wheelShell || items.length < 1) return;
 
   // Injected/required containers (added by editing home.html later)
   const heroShell = $('#circularProductHeroShell');
@@ -89,6 +94,8 @@
   // -------------------- State --------------------
   let isOpen = false;
   let heroTimeline = null;
+
+  // Circular-only state
   let wheelTimeline = null;
   let wheelRot = 0;
   let wheelPaused = false;
@@ -142,12 +149,14 @@
   }
 
   function startWheel() {
+    if (isHorizontal) return;
     if (rafId) return;
     lastTs = 0;
     rafId = window.requestAnimationFrame(tick);
   }
 
   function stopWheel() {
+    if (isHorizontal) return;
     if (!rafId) return;
     window.cancelAnimationFrame(rafId);
     rafId = null;
@@ -263,7 +272,8 @@
     setHeroContent(itemEl);
 
     // wheel fade out
-    $$('.circular-item', track).forEach((el) => {
+    const allItems = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
+    allItems.forEach((el) => {
       el.style.pointerEvents = 'none';
     });
 
@@ -304,7 +314,7 @@
         ease: 'expo.out'
       })
       .to(
-        $$('.circular-item', track),
+        isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track),
         {
           duration: prefersReduced ? 0.01 : 0.35,
           opacity: (idx, el) => (el === itemEl ? 1 : 0),
@@ -359,7 +369,7 @@
 
     isOpen = false;
 
-    // find selected item: closest to center is still hidden; we remember by storing on heroShell.
+    // find selected item
     const selectedIndex = heroShell.dataset.selectedIndex;
     const itemEl = selectedIndex != null ? items[Number(selectedIndex)] : null;
 
@@ -397,7 +407,7 @@
     if (heroTimeline) heroTimeline.kill();
     heroTimeline = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
 
-    const others = $$('.circular-item', track);
+    const others = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
 
     heroTimeline
       .to(others, {
@@ -433,29 +443,32 @@
     heroTimeline.eventCallback('onComplete', () => {
       // restore wheel
       resumeWheel();
-      $$('.circular-item', track).forEach((el) => {
+      const restoreItems = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
+      restoreItems.forEach((el) => {
         el.style.pointerEvents = '';
       });
     });
   }
 
-  // -------------------- Bind wheel click + back --------------------
+  // -------------------- Bind click + back --------------------
   items.forEach((itemEl, idx) => {
-    const clickable = itemEl;
-    clickable.style.cursor = 'pointer';
+    itemEl.style.cursor = 'pointer';
 
     itemEl.addEventListener('click', () => {
       if (isOpen) return;
-      heroShell.dataset.selectedIndex = String(idx);
+      if (heroShell) heroShell.dataset.selectedIndex = String(idx);
 
-      // Rotate wheel so selected item approaches center.
-      // We keep it simple: rotate track by index step.
+      // Horizontal slider: no rotation animation, just open hero.
+      if (isHorizontal) {
+        openHero(itemEl);
+        return;
+      }
+
+      // Circular slider: rotate wheel so selected item approaches center, then open hero
       const angleStep = 360 / items.length;
       const centerAngle = 0;
-      // current rotation affects which item is front; approximate mapping.
       const targetRotation = -idx * angleStep + centerAngle;
 
-      // Animate wheel rotation then open hero
       if (prefersReduced) {
         setWheelRotation(targetRotation);
         openHero(itemEl);
@@ -492,72 +505,96 @@
 
   if (btnBack) btnBack.addEventListener('click', closeHero);
 
-  // -------------------- Wheel init --------------------
-  // Ensure CSS variables are set for initial wheel layout
-  const itemCount = Math.max(1, items.length);
-  track.style.setProperty('--angleStep', `${360 / itemCount}deg`);
+  // -------------------- Init --------------------
+  if (!isHorizontal) {
+    // Ensure CSS variables are set for initial wheel layout
+    const itemCount = Math.max(1, items.length);
+    track.style.setProperty('--angleStep', `${360 / itemCount}deg`);
 
-  // Replace default wheel rotation behavior from existing script-home.js
-  // by pausing it on load and using our GSAP-aware tick.
-  // We cannot perfectly remove existing RAF from script-home.js, so we simply start ours and
-  // keep our isOpen flag checked.
-  startWheel();
+    // Start circular wheel rotation
+    startWheel();
 
-  // Handle visibility changes
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) pauseWheel();
-    else if (!isOpen) resumeWheel();
-  });
-
-  // Mobile swipe support (lightweight)
-  function initSwipe() {
-    const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-    if (!isMobile) return;
-
-    let startX = 0;
-    let dx = 0;
-    let dragging = false;
-
-    wheelShell.addEventListener('touchstart', (e) => {
-      if (isOpen) return;
-      const t = e.touches[0];
-      startX = t.clientX;
-      dx = 0;
-      dragging = true;
-    }, { passive: true });
-
-    wheelShell.addEventListener('touchmove', (e) => {
-      if (!dragging || isOpen) return;
-      const t = e.touches[0];
-      dx = t.clientX - startX;
-
-      // Convert swipe to rotation
-      const strength = 0.2;
-      setWheelRotation(wheelRot + (-dx * strength));
-    }, { passive: true });
-
-    wheelShell.addEventListener('touchend', () => {
-      if (!dragging || isOpen) return;
-      dragging = false;
-
-      // Snap by step
-      const angleStep = 360 / items.length;
-      const snapped = Math.round(wheelRot / angleStep) * angleStep;
-      if (prefersReduced) {
-        setWheelRotation(snapped);
-      } else {
-        gsap.to({ v: wheelRot }, {
-          duration: 0.45,
-          v: snapped,
-          ease: 'power2.out',
-          onUpdate: function () {
-            setWheelRotation(this.targets()[0].v);
-          }
-        });
-      }
+    // Handle visibility changes
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) pauseWheel();
+      else if (!isOpen) resumeWheel();
     });
-  }
 
-  initSwipe();
+    // Mobile swipe support (lightweight)
+    function initSwipe() {
+      const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+      if (!isMobile) return;
+
+      let startX = 0;
+      let dx = 0;
+      let dragging = false;
+
+      wheelShell.addEventListener('touchstart', (e) => {
+        if (isOpen) return;
+        const t = e.touches[0];
+        startX = t.clientX;
+        dx = 0;
+        dragging = true;
+      }, { passive: true });
+
+      wheelShell.addEventListener('touchmove', (e) => {
+        if (!dragging || isOpen) return;
+        const t = e.touches[0];
+        dx = t.clientX - startX;
+
+        // Convert swipe to rotation
+        const strength = 0.2;
+        setWheelRotation(wheelRot + (-dx * strength));
+      }, { passive: true });
+
+      wheelShell.addEventListener('touchend', () => {
+        if (!dragging || isOpen) return;
+        dragging = false;
+
+        // Snap by step
+        const angleStep = 360 / items.length;
+        const snapped = Math.round(wheelRot / angleStep) * angleStep;
+        if (prefersReduced) {
+          setWheelRotation(snapped);
+        } else {
+          gsap.to({ v: wheelRot }, {
+            duration: 0.45,
+            v: snapped,
+            ease: 'power2.out',
+            onUpdate: function () {
+              setWheelRotation(this.targets()[0].v);
+            }
+          });
+        }
+      });
+    }
+
+    initSwipe();
+  } else {
+    // Horizontal slider: hook arrows to scroll
+    const prevBtn = wheelShell.querySelector('[data-horizontal-prev]');
+    const nextBtn = wheelShell.querySelector('[data-horizontal-next]');
+    const trackEl = wheelShell.querySelector('#featuredHorizontalTrack');
+
+    if (trackEl && items.length > 0) {
+      const firstItem = items[0];
+
+      function scrollByOne(direction) {
+        if (!trackEl || !firstItem) return;
+        const itemRect = firstItem.getBoundingClientRect();
+        const trackRect = trackEl.getBoundingClientRect();
+        const delta = (itemRect.width || 270) + 22; // width + gap approximation
+        const amount = direction * delta;
+
+        trackEl.scrollBy({ left: amount, behavior: prefersReduced ? 'auto' : 'smooth' });
+
+        // Focus handling (accessibility)
+        if (wheelShell.focus) wheelShell.focus();
+      }
+
+      if (prevBtn) prevBtn.addEventListener('click', () => scrollByOne(-1));
+      if (nextBtn) nextBtn.addEventListener('click', () => scrollByOne(1));
+    }
+  }
 })();
 

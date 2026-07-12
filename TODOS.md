@@ -1,0 +1,12 @@
+- [x] Update pages/home.html: replace Featured circular slider markup with horizontal slider markup and set data-slider-mode="horizontal"
+- [x] Update css/style.css: add horizontal slider layout styles and override circular-item positioning for horizontal mode
+- [x] Update js/product-showcase-circular.js: add horizontal mode guard to stop rotation animation and bind clicks to horizontal items only
+- [ ] Manual verification: arrows scroll, clicking items opens hero dialog, Back closes hero and wheel/rotation doesn’t run
+- [ ] Full theme + structure redesign (frontend only):
+  - [ ] Update css/style.css to new premium design system (tokens, spacing, cards, buttons, forms, animations) while preserving JS-critical hooks
+  - [ ] Redesign pages/home.html layout while preserving JS-critical IDs/hooks
+  - [ ] Redesign pages/about.html / pages/contact.html / pages/products.html layout while preserving JS-critical IDs/hooks
+  - [ ] Minimal JS remap (if required):
+    - [ ] js/product-showcase-circular.js (featured slider + hero dialog wiring)
+    - [ ] js/script-home.js (featured slider init guard/remap)
+  - [ ] Manual testing pass (critical path + navigation + order modal + products filters)

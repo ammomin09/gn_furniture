@@ -7,10 +7,10 @@
     <meta name="description" content="Browse GN Furniture's premium collection of custom furniture for every room." />
     <title>Products - GN Furniture</title>
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../js/hero-shared-element.css">
 </head>
 
 <body>
-    <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="gn-header">
         <a href="home.html" class="gn-brand" aria-label="GN Furniture home">
             <span class="gn-brand__mark">GN</span>
@@ -30,6 +30,15 @@
         </nav>
 
         <div class="gn-actions">
+            <button class="gn-icon-btn gn-icon-btn--cart" type="button" onclick="openOrderModal()" title="Place an order" aria-label="Place an order">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
+                    <path d="M3 6h18"/>
+                    <path d="M16 10a4 4 0 0 1-8 0"/>
+                </svg>
+                <span class="gn-icon-btn__label">Order</span>
+            </button>
+
             <button class="gn-icon-btn" type="button" onclick="logout()" id="logoutBtn" title="Sign out" aria-label="Sign out">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
@@ -38,6 +47,7 @@
                 </svg>
                 <span class="gn-icon-btn__label">Sign Out</span>
             </button>
+
             <button class="gn-burger" id="navToggle" type="button" aria-label="Toggle navigation" aria-controls="primaryNav" aria-expanded="false">
                 <span></span><span></span><span></span>
             </button>
@@ -354,7 +364,6 @@
         <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
     </footer>
 
-    <script type="module" src="../js/script-about.js"></script>
     <script src="../js/products.js" defer></script>
 </body>
 </html>

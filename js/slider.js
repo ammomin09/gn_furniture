@@ -3,7 +3,7 @@
 let currentSlide = 0;
 const slides = document.querySelector('.slides');
 const sliderDots = document.querySelectorAll('.slider-dot');
-const totalSlides = 5; // Number of images in the slider
+const totalSlides = sliderDots.length || 1; // Number of images in the slider
 let autoplayInterval;
 
 // Initialize slider
@@ -60,6 +60,7 @@ function startAutoplay() {
         updateDots();
     }, 2500); // Change slide every 2.5 seconds
 }
+
 
 function resetAutoplay() {
     clearInterval(autoplayInterval);
