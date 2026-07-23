@@ -606,9 +606,7 @@ body > *:not(.page-bg):not(.footer) {
 }
 
 @media (max-width: 1024px) {
-    .gn-burger { display: none !important; }
     .gn-nav { position: static; height:auto; width:auto; transform:none; padding:0; overflow:visible; flex: 1 1 auto; pointer-events:auto; background: transparent; box-shadow:none; }
-    .gn-drawer-backdrop { display:none !important; }
     .gn-nav ul { flex-direction: row; gap: 6px; background: linear-gradient(135deg, rgba(31, 58, 95, 0.04), rgba(176, 141, 87, 0.06)); border: 1px solid rgba(31, 58, 95, 0.10); border-radius: 999px; width:auto; padding: 6px; }
     .gn-nav a { width:auto; padding: 8px 14px; font-size: 0.92rem; border-radius: 999px; white-space: nowrap; }
     .gn-nav a::before{ display:block; }
@@ -1582,9 +1580,21 @@ footer,
 /* Responsive behavior */
 @media (max-width: 768px) {
     .gn-desktop-only { display: none !important; }
-    .gn-mobile-menu-btn { display: inline-flex; align-items: center; gap: 10px; }
     .gn-actions { align-items: center; }
-    .gn-nav { display: none; }
+    .gn-nav { display: flex; flex: 1; }
+    .gn-nav ul {
+        flex-direction: row;
+        gap: 4px;
+        padding: 4px;
+        background: rgba(31,58,95,0.03);
+        border: 1px solid rgba(20,42,71,0.10);
+        border-radius: 999px;
+    }
+    .gn-nav a {
+        padding: 8px 12px;
+        font-size: 0.82rem;
+        white-space: nowrap;
+    }
 }
 
 /* ensure SVG icon buttons don't overflow */
