@@ -268,99 +268,31 @@
 
     isOpen = true;
     pauseWheel();
-
     setHeroContent(itemEl);
 
-    // wheel fade out
+    const heroImg = $('#circularProductHeroImage');
+    const itemImg = $('img', itemEl);
+    if (heroImg && itemImg) {
+      heroImg.src = itemImg.currentSrc || itemImg.src;
+      heroImg.alt = itemImg.alt || 'Selected product';
+    }
+
     const allItems = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
     allItems.forEach((el) => {
       el.style.pointerEvents = 'none';
+      el.style.opacity = el === itemEl ? '1' : '0.2';
+      el.style.filter = el === itemEl ? 'none' : 'blur(2px)';
     });
 
-    // Create ghost from selected image
-    const ghost = buildGhostFromItem(itemEl);
-    if (!ghost) {
-      // fallback: just show hero
-      heroShell.classList.remove('hero-hidden');
-      return;
-    }
-
-    // Compute hero media rect
-    const slot = heroMediaSlot;
-    const slotRect = slot.getBoundingClientRect();
-
-    // Prepare hero initial state
     heroShell.classList.remove('hero-hidden');
+    heroShell.setAttribute('aria-hidden', 'false');
     heroInner.style.opacity = '1';
     heroInner.style.transform = 'translateY(0)';
-
-    // Hide slot background until the ghost animation arrives
-    heroMediaSlot.classList.add('hero-slot--animating');
-
-    // Build GSAP timeline
-    if (heroTimeline) heroTimeline.kill();
-    heroTimeline = gsap.timeline({ defaults: { ease: 'power3.out' } });
-
-    // fade dim background within hero shell
-    heroTimeline
-      .set(heroShell, { opacity: 1 })
-      .to(ghost, {
-        duration: prefersReduced ? 0.01 : 0.85,
-        left: slotRect.left,
-        top: slotRect.top,
-        width: slotRect.width,
-        height: slotRect.height,
-        borderRadius: '26px',
-        ease: 'expo.out'
-      })
-      .to(
-        isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track),
-        {
-          duration: prefersReduced ? 0.01 : 0.35,
-          opacity: (idx, el) => (el === itemEl ? 1 : 0),
-          filter: 'blur(6px)',
-          stagger: { each: 0.04 },
-          ease: 'power2.out'
-        },
-        '-=0.25'
-      )
-      .add(() => {
-        // swap in hero image (no inline styles)
-        const heroImg = $('#circularProductHeroImage');
-        if (heroImg) heroImg.src = ghost.src;
-      })
-      .to(
-        ghost,
-        {
-          duration: prefersReduced ? 0.01 : 0.25,
-          opacity: 0,
-          ease: 'power1.in'
-        },
-        '+=0.01'
-      )
-      .add(() => {
-        ghost.remove();
-        heroMediaSlot.classList.remove('hero-slot--animating');
-      })
-      .fromTo(
-        $$('.circular-hero-detail'),
-        { y: 16, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: prefersReduced ? 0.01 : 0.55,
-          ease: 'back.out(1.7)',
-          stagger: 0.08
-        },
-        '-=0.2'
-      );
-
-    // Animate hero container in a cinematic way
-    heroTimeline.to(heroInner, {
-      duration: prefersReduced ? 0.01 : 0.65,
-      filter: 'blur(0px)',
-      ease: 'power2.out'
-    }, '-=0.35');
+    heroInner.style.filter = 'blur(0px)';
+    $$('.circular-hero-detail').forEach((detail) => {
+      detail.style.opacity = '1';
+      detail.style.transform = 'translateY(0)';
+    });
   }
 
   function closeHero() {
@@ -368,85 +300,15 @@
     if (!isOpen) return;
 
     isOpen = false;
+    heroShell.classList.add('hero-hidden');
+    heroShell.setAttribute('aria-hidden', 'true');
+    resumeWheel();
 
-    // find selected item
-    const selectedIndex = heroShell.dataset.selectedIndex;
-    const itemEl = selectedIndex != null ? items[Number(selectedIndex)] : null;
-
-    pauseWheel();
-
-    // Create ghost from hero image back to item
-    const ghostSrcEl = $('#circularProductHeroImage');
-    if (!itemEl || !ghostSrcEl) {
-      heroShell.classList.add('hero-hidden');
-      resumeWheel();
-      return;
-    }
-
-    const ghost = document.createElement('img');
-    ghost.src = ghostSrcEl.currentSrc || ghostSrcEl.src;
-    ghost.alt = heroTitle?.textContent || 'Product';
-    ghost.style.position = 'fixed';
-
-    // starting rect at hero
-    const heroRect = heroMediaSlot.getBoundingClientRect();
-    ghost.style.left = `${heroRect.left}px`;
-    ghost.style.top = `${heroRect.top}px`;
-    ghost.style.width = `${heroRect.width}px`;
-    ghost.style.height = `${heroRect.height}px`;
-    ghost.style.objectFit = 'cover';
-    ghost.style.borderRadius = '26px';
-    ghost.style.zIndex = '50000';
-    ghost.style.pointerEvents = 'none';
-    ghost.style.boxShadow = '0 30px 90px rgba(0,0,0,0.35)';
-    document.body.appendChild(ghost);
-
-    const itemImg = $('img', itemEl);
-    const itemRect = itemImg.getBoundingClientRect();
-
-    if (heroTimeline) heroTimeline.kill();
-    heroTimeline = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
-
-    const others = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
-
-    heroTimeline
-      .to(others, {
-        duration: prefersReduced ? 0.01 : 0.25,
-        opacity: (idx, el) => (el === itemEl ? 1 : 1),
-        filter: 'blur(0px)',
-        stagger: { each: 0.03 },
-        ease: 'power2.out'
-      })
-      .to(
-        ghost,
-        {
-          duration: prefersReduced ? 0.01 : 0.75,
-          left: itemRect.left,
-          top: itemRect.top,
-          width: itemRect.width,
-          height: itemRect.height,
-          borderRadius: '999px',
-          ease: 'expo.inOut'
-        },
-        0
-      )
-      .to(heroInner, {
-        duration: prefersReduced ? 0.01 : 0.35,
-        opacity: 0,
-        ease: 'power1.in'
-      }, '-=0.4')
-      .add(() => {
-        ghost.remove();
-        heroShell.classList.add('hero-hidden');
-      });
-
-    heroTimeline.eventCallback('onComplete', () => {
-      // restore wheel
-      resumeWheel();
-      const restoreItems = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
-      restoreItems.forEach((el) => {
-        el.style.pointerEvents = '';
-      });
+    const restoreItems = isHorizontal ? $$('.circular-item', wheelShell) : $$('.circular-item', track);
+    restoreItems.forEach((el) => {
+      el.style.pointerEvents = '';
+      el.style.opacity = '';
+      el.style.filter = '';
     });
   }
 
@@ -457,49 +319,16 @@
     itemEl.addEventListener('click', () => {
       if (isOpen) return;
       if (heroShell) heroShell.dataset.selectedIndex = String(idx);
-
-      // Horizontal slider: no rotation animation, just open hero.
-      if (isHorizontal) {
-        openHero(itemEl);
-        return;
-      }
-
-      // Circular slider: rotate wheel so selected item approaches center, then open hero
-      const angleStep = 360 / items.length;
-      const centerAngle = 0;
-      const targetRotation = -idx * angleStep + centerAngle;
-
-      if (prefersReduced) {
-        setWheelRotation(targetRotation);
-        openHero(itemEl);
-        return;
-      }
-
-      pauseWheel();
-      gsap.to(track, {
-        duration: 0.75,
-        '--rotation': `${targetRotation}deg`,
-        ease: 'expo.out',
-        onComplete: () => {
-          openHero(itemEl);
-        }
-      });
+      openHero(itemEl);
     });
 
-    // Hover effects: premium glow + scale via GSAP for smoothness
     itemEl.addEventListener('mouseenter', () => {
       if (isOpen) return;
-      const img = $('img', itemEl);
-      if (!img) return;
-      if (prefersReduced) return;
-      gsap.to(img, { duration: 0.25, scale: 1.08, boxShadow: '0 30px 90px rgba(176,141,87,0.26)' });
+      itemEl.classList.add('is-hovered');
     });
     itemEl.addEventListener('mouseleave', () => {
       if (isOpen) return;
-      const img = $('img', itemEl);
-      if (!img) return;
-      if (prefersReduced) return;
-      gsap.to(img, { duration: 0.25, scale: 1, boxShadow: '' });
+      itemEl.classList.remove('is-hovered');
     });
   });
 

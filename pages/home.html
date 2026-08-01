@@ -86,6 +86,12 @@
         </div>
     </div>
 
+    <div class="promo-bar">
+        <span>Free design consultation</span>
+        <span>Premium custom furniture</span>
+        <span>Call +91 9726029382</span>
+    </div>
+
     <header class="gn-header">
         <a href="home.html" class="gn-brand" aria-label="GN Furniture home">
             <span class="gn-brand__mark">GN</span>
@@ -105,7 +111,6 @@
         </nav>
 
         <div class="gn-actions">
-            <!-- Desktop actions -->
             <button class="gn-icon-btn gn-icon-btn--cart gn-desktop-only" type="button" onclick="openOrderModal()" title="Place an order" aria-label="Place an order">
                 <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/>
@@ -123,7 +128,6 @@
                 </svg>
                 <span class="gn-icon-btn__label">Sign Out</span>
             </button>
-
         </div>
     </header>
 
@@ -177,6 +181,83 @@
                     <h3>Fast support</h3>
                     <p>Friendly guidance for orders, delivery, and after-sales care.</p>
                 </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="section-heading">
+                <p class="eyebrow">Curated by room</p>
+                <h2>Shop by the atmosphere you want to create</h2>
+                <p>Thoughtfully styled pieces for the living room, bedroom, dining space, and workspace.</p>
+            </div>
+            <div class="room-grid">
+                <article class="room-card">
+                    <img src="../assets/living.jpg" alt="Living room furniture">
+                    <div class="room-card__body">
+                        <h3>Living Room</h3>
+                        <p>Comfort-led sofas and sculptural tables for relaxed entertaining.</p>
+                    </div>
+                </article>
+                <article class="room-card">
+                    <img src="../assets/bedroom.jpg" alt="Bedroom furniture">
+                    <div class="room-card__body">
+                        <h3>Bedroom</h3>
+                        <p>Calm, warm storage and bed designs that soften the room.</p>
+                    </div>
+                </article>
+                <article class="room-card">
+                    <img src="../assets/dining.jpg" alt="Dining furniture">
+                    <div class="room-card__body">
+                        <h3>Dining</h3>
+                        <p>Minimal tables and chairs that bring ease to daily hosting.</p>
+                    </div>
+                </article>
+                <article class="room-card">
+                    <img src="../assets/f1.jpg" alt="Office furniture">
+                    <div class="room-card__body">
+                        <h3>Office</h3>
+                        <p>Streamlined desks and storage built for focus and function.</p>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="section section-light">
+            <div class="section-heading">
+                <p class="eyebrow">Client stories</p>
+                <h2>Elegance, comfort, and trust in every delivery</h2>
+            </div>
+            <div class="testimonial-grid">
+                <article class="testimonial-card">
+                    <blockquote>“The space feels refined and effortless. Every piece feels intentional.”</blockquote>
+                    <strong>— Asha & Rohan</strong>
+                </article>
+                <article class="testimonial-card">
+                    <blockquote>“Beautiful craftsmanship and thoughtful recommendations from start to finish.”</blockquote>
+                    <strong>— Sneha V.</strong>
+                </article>
+                <article class="testimonial-card">
+                    <blockquote>“We loved how the collection balanced luxury with everyday practicality.”</blockquote>
+                    <strong>— Meera P.</strong>
+                </article>
+                <article class="testimonial-card">
+                    <blockquote>“A calm, modern experience that made choosing furniture feel easy.”</blockquote>
+                    <strong>— Nikhil S.</strong>
+                </article>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="newsletter-card">
+                <div>
+                    <p class="eyebrow">Stay inspired</p>
+                    <h3>Receive new collection updates and design inspiration.</h3>
+                    <p>Join our newsletter for curated ideas, launches, and expert styling notes.</p>
+                </div>
+                <form class="newsletter-form" onsubmit="event.preventDefault()">
+                    <input type="email" placeholder="Enter your email" aria-label="Email address">
+                    <button class="btn" type="submit">Subscribe</button>
+                </form>
             </div>
         </section>
 
@@ -306,10 +387,19 @@
             </div>
         </section>
 
+        <section class="section cta-section">
+            <div class="cta-banner">
+                <p class="eyebrow">Design support</p>
+                <h2>Need help choosing the right pieces for your space?</h2>
+                <p>Book a complimentary consultation and let our team guide you through materials, layouts, and finishes that match your lifestyle.</p>
+                <a class="btn" href="contact.html">Book consultation</a>
+            </div>
+        </section>
+
         <section class="section type-section">
             <div class="section-heading">
                 <p class="eyebrow">Furniture categories</p>
-                <h2>Types of furniture we craft with care</h2>
+                <h2>Explore the spaces we transform with furniture</h2>
             </div>
 
             <div class="cat-grid" role="list" aria-label="Furniture categories catalog">
@@ -418,20 +508,34 @@
         </section>
     </main>
 
-    <footer class="footer">
-        <h1>GN Furniture</h1>
-        <p>Quick Links</p>
-        <ul>
-            <li><a href="home.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="contact.html">Contact</a></li>
-        </ul>
-        <p>© GN Furniture. All rights reserved.</p>
-        <p>Building modern furnitures | 40 years of experience | We offer all types of furniture</p>
-        <p>Contact us at ammomin009@gmail.com | Phone: +91 9726029382</p>
-        <p>Address: Porda wada ni chali, Near S.S hospital. Petlad-388450</p>
-        <p class="note">Note: We made high-quality furniture so the quality is guaranteed. But price may vary based on the materials used.</p>
+    <footer class="footer footer--flatsome">
+        <div class="footer-grid">
+            <div class="footer-card">
+                <h3>GN Furniture</h3>
+                <p>Premium custom furniture crafted for modern homes, elegant offices, and inviting living spaces.</p>
+            </div>
+            <div class="footer-card">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="home.html">Home</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-card">
+                <h3>Contact</h3>
+                <ul>
+                    <li>Email: ammomin009@gmail.com</li>
+                    <li>Phone: +91 9726029382</li>
+                    <li>Address: Porda wada ni chali, Near S.S hospital, Petlad-388450</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© GN Furniture. All rights reserved.</p>
+            <p class="note">Built with craftsmanship, design, and dependable support.</p>
+        </div>
     </footer>
 
     <script src="../js/slider.js"></script>

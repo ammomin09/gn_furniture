@@ -7,36 +7,7 @@
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   /* ============================================================
-   * 1. NAV DRAWER (reuse the same pattern as home page)
-   * ============================================================ */
-  function initNavDrawer() {
-    const navToggle = $('#navToggle');
-    const primaryNav = $('#primaryNav');
-    const navBackdrop = $('#navBackdrop');
-    if (!navToggle || !primaryNav || !navBackdrop) return;
-
-    const setOpen = (isOpen) => {
-      primaryNav.classList.toggle('is-open', isOpen);
-      navBackdrop.classList.toggle('is-open', isOpen);
-      navToggle.classList.toggle('is-open', isOpen);
-      navToggle.setAttribute('aria-expanded', String(isOpen));
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    };
-
-    navToggle.addEventListener('click', () => setOpen(!primaryNav.classList.contains('is-open')));
-    navBackdrop.addEventListener('click', () => setOpen(false));
-    primaryNav.querySelectorAll('a').forEach((a) =>
-      a.addEventListener('click', () => {
-        if (window.innerWidth <= 1024) setOpen(false);
-      })
-    );
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
-    });
-  }
-
-  /* ============================================================
-   * 2. RENDER STARS FROM data-stars
+   * 1. RENDER STARS FROM data-stars
    * ============================================================ */
   function renderStars() {
     $$('.stars').forEach((el) => {
@@ -304,7 +275,6 @@
    * BOOT
    * ============================================================ */
   document.addEventListener('DOMContentLoaded', () => {
-    initNavDrawer();
     renderStars();
     initFilterPanel();
     initSearchAndSort();

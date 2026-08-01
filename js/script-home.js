@@ -374,36 +374,6 @@ window.addEventListener('click', function (event) {
   }
 });
 
-// Navigation drawer (mobile) toggle
-(function initNavDrawer() {
-  const navToggle = document.getElementById('navToggle');
-  const primaryNav = document.getElementById('primaryNav');
-  const navBackdrop = document.getElementById('navBackdrop');
-  if (!navToggle || !primaryNav || !navBackdrop) return;
-
-  const setOpen = (isOpen) => {
-    primaryNav.classList.toggle('is-open', isOpen);
-    navBackdrop.classList.toggle('is-open', isOpen);
-    navToggle.classList.toggle('is-open', isOpen);
-    navToggle.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
-
-  navToggle.addEventListener('click', function () {
-    setOpen(!primaryNav.classList.contains('is-open'));
-  });
-  navBackdrop.addEventListener('click', function () {
-    setOpen(false);
-  });
-  primaryNav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', function () {
-      if (window.innerWidth <= 1024) setOpen(false);
-    });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') setOpen(false);
-  });
-})();
 
 // Card Animation Observer
 const cards = document.querySelectorAll(".card");

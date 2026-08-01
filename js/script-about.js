@@ -46,33 +46,3 @@ if (profile) {
   observer.observe(profile);
 }
 
-// Legacy site-header mobile drawer (about.html, contact.html)
-(function initLegacyDrawer() {
-  const burger = document.getElementById('legacyBurger');
-  const nav = document.getElementById('legacyNav');
-  const backdrop = document.getElementById('legacyBackdrop');
-  if (!burger || !nav || !backdrop) return;
-
-  const setOpen = (isOpen) => {
-    nav.classList.toggle('is-open', isOpen);
-    backdrop.classList.toggle('is-open', isOpen);
-    burger.classList.toggle('is-open', isOpen);
-    burger.setAttribute('aria-expanded', String(isOpen));
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-  };
-
-  burger.addEventListener('click', function () {
-    setOpen(!nav.classList.contains('is-open'));
-  });
-  backdrop.addEventListener('click', function () {
-    setOpen(false);
-  });
-  nav.querySelectorAll('a').forEach((link) => {
-    link.addEventListener('click', function () {
-      if (window.innerWidth <= 1024) setOpen(false);
-    });
-  });
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') setOpen(false);
-  });
-})();
